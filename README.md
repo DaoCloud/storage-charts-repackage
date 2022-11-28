@@ -1,4 +1,4 @@
-# hwameistor-charts-repackage
+# nfs-subdir-external-provisioner-charts-repackage
 [![Release Chart](https://github.com/DaoCloud/nfs-subdir-external-provisioner-charts-repackage/actions/workflows/release-chart.yml/badge.svg)](https://github.com/DaoCloud/nfs-subdir-external-provisioner-charts-repackage/actions/workflows/release-chart.yml)
 
 ## requirement

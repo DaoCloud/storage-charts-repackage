@@ -8,7 +8,7 @@ image:
 imagePullSecrets: []
 
 nfs:
-  server: x.x.x.x
+  server:
   path: /nfs-storage
   mountOptions:
   volumeName: nfs-subdir-external-provisioner-root
@@ -90,7 +90,7 @@ serviceAccount:
 
   # The name of the ServiceAccount to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: nfs-subdir-external-provisioner
+  name:
 
 resources: {}
   # limits:

@@ -1,0 +1,20 @@
+name: 'Update PR'
+
+on:
+  pull_request_target:
+    branches:
+      - main
+    paths:
+      - 'charts/**'
+
+jobs:
+
+#      - name: Push changes
+#        run: |
+#          # Push all the changes
+#          cd charts
+#          if git status -s | grep bitnami; then
+#            git config user.name "Bitnami Containers"
+#            git config user.email "bitnami-bot@vmware.com"
+#            git add . && git commit -am "Update README.md with readme-generator-for-helm" --signoff && git push
+#          fi

@@ -1,0 +1,198 @@
+name: Release Chart
+
+env:
+  MERGE_BRANCH: gh-pages
+  PR_LABEL: pr/release/robot_update_githubpage
+  PR_REVIWER: sun7927
+  DAOCLOUD_HARBOR_URL: https://release.daocloud.io
+
+on:
+  push:
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
+      - v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'project name.[ leave empty for all projects]'
+        required: false
+      ref:
+        description: 'branch name, tag or sha'
+        required: true
+        default: main
+      daocloud:
+        description: 'enable push to daocloud repo'
+        required: true
+        type: boolean
+        default: true
+
+permissions: write-all
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    outputs:
+      ref: ${{ steps.get_ref.outputs.ref }}
+    steps:
+      - name: Get Ref
+        id: get_ref
+        run: |
+          if ${{ github.event_name == 'workflow_dispatch' }} ; then
+              echo "call by self workflow_dispatch"
+              if ${{ github.event.inputs.project == '' }} ; then
+                  echo "project=all" >>$GITHUB_OUTPUT
+              else
+                  echo "project=${{ github.event.inputs.project }}" >>$GITHUB_OUTPUT
+              fi
+              # release to github pages  
+              echo "release=${{ github.event.inputs.daocloud }}" >>$GITHUB_OUTPUT
+              echo "ref=${{ github.event.inputs.ref }}" >>$GITHUB_OUTPUT
+              echo "publishversion=false" >>$GITHUB_OUTPUT  
+          
+               elif ${{ github.event_name == 'push' }} ; then
+              echo "call by tag push"          
+              echo "project=all" >>$GITHUB_OUTPUT
+              echo "release=true" >>$GITHUB_OUTPUT
+              # release to github pages
+              echo "ref=${GITHUB_REF##*/}" >>$GITHUB_OUTPUT
+              echo "publishversion=true" >>$GITHUB_OUTPUT
+          
+          else
+            echo "unexpected event: ${{ github.event_name }}"
+            exit 1
+          fi
+
+      # some event, the tag is not sha, so checkout it and get sha
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          ref: ${{ steps.get_ref.outputs.ref }}
+
+      - name: Result Ref
+        id: result
+        run: |
+          ref=$( git show -s --format='format:%H')
+          echo "ref=${ref}" >>$GITHUB_OUTPUT
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3.4
+
+      - name: package chart
+        id: package
+        run: |
+          ROOT_DIR=`pwd`
+          project_list=${{ steps.get_ref.outputs.project }}
+          if [ "$project_list" == "all" ] || [ -z "$project_list" ] ; then
+              project_list=""
+              TMP=`ls charts`
+              for ITEM in $TMP ; do
+                  if [ -d "${ROOT_DIR}/charts/${ITEM}/${ITEM}" ] ; then
+                      project_list+=" $ITEM "
+                  fi
+              done
+          fi
+          mkdir _upload
+          cd _upload
+          for ITEM in $project_list ; do
+              [ ! -d "${ROOT_DIR}/charts/${ITEM}/${ITEM}" ] && echo "error, failed to find project $ITEM in /charts" && exit 1
+              helm package ${ROOT_DIR}/charts/${ITEM}/${ITEM}
+          done
+          echo "project_list=${project_list}" >>$GITHUB_OUTPUT
+
+      - name: Upload chart artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: charts
+          path: _upload
+          retention-days: 1
+
+      - name: Install helm-push
+        if: ${{ steps.get_ref.outputs.release == 'true' }}
+        run: |
+          helm plugin install https://github.com/chartmuseum/helm-push
+
+      - name: push to daocloud
+        if: ${{ steps.get_ref.outputs.release == 'true' }}
+        run: |
+          ROOT_DIR=`pwd`
+          cd _upload
+          set -x
+          for ITEM in ${{ steps.package.outputs.project_list }} ; do
+              DAO_PROJECT=` grep "DAOCLOUD_REPO_PROJECT" ${ROOT_DIR}/charts/${ITEM}/config | awk -F= '{print $2}' | tr -d ' ' `
+              [ -z "$DAO_PROJECT" ] && echo "error, failed to find DAOCLOUD_REPO_PROJECT config in charts/${ITEM}/config " && exit 1
+              CHART_FILE=` ls | grep -o -E "${ITEM}-[v0-9\.]+.tgz" `
+              [ -z "${CHART_FILE}" ] && echo "error, failed to find chart.tgz for $ITEM " && exit 2
+              DAO_ADDRESS=${{ env.DAOCLOUD_HARBOR_URL }}/chartrepo/${DAO_PROJECT}
+              echo "push $CHART_FILE to $DAO_ADDRESS "
+              BAD=true
+              for ((N=0;N<10;N++)); do
+                  helm repo add daocloud-${DAO_PROJECT}  ${DAO_ADDRESS} --username=${{ secrets.DAOCLOUD_HARBOR_USER }}  --password=${{ secrets.DAOCLOUD_HARBOR_PASSWORD }}  || continue 
+                  BAD="" && break          
+              done
+              [ "$BAD" == "true" ] && echo "erro, failed to helm repo add " && exit 1
+              BAD=true
+              for ((N=0;N<10;N++)); do
+                  helm cm-push ${CHART_FILE}  daocloud-${DAO_PROJECT} --username=${{ secrets.DAOCLOUD_HARBOR_USER }}  --password=${{ secrets.DAOCLOUD_HARBOR_PASSWORD }} || continue
+                  BAD="" && break
+              done
+              [ "$BAD" == "true" ] && echo "erro, failed to helm push " && exit 1
+          done
+          exit 0
+
+      - name: Create Release
+        id: create_release
+        if: ${{ steps.get_ref.outputs.publishversion == 'true' }}
+        uses: ncipollo/release-action@v1.11.1
+        with:
+          artifacts: "_upload/*"
+          allowUpdates: true
+          removeArtifacts: true
+          replacesArtifacts: true
+          artifactErrorsFailBuild: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.get_ref.outputs.ref }}
+          name: "Release ${{ steps.get_ref.outputs.ref }}"
+
+  # update /index.yaml in the target branch
+  update_githubpage:
+    runs-on: ubuntu-latest
+    needs: [package]
+    steps:
+      - name: Get Base Chart URL
+        id: get_base_url
+        run: |
+          name=${{ github.repository }}
+          proj=${name#*/}
+          url=https://${{ github.repository_owner }}.github.io/${proj}
+          echo "::set-output name=url::${url}"
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.MERGE_BRANCH }}
+          persist-credentials: "true"
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: charts
+          path: ./
+
+      - name: Update Chart Yaml
+        run: |
+          ls
+          helm repo index  ./  --url ${{ steps.get_base_url.outputs.url }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4.1.4
+        with:
+          title: "robot Update chart to branch ${{ env.MERGE_BRANCH }} "
+          commit-message: "robot Update chart from ${{ needs.package.outputs.ref }} to branch ${{ env.MERGE_BRANCH }} "
+          branch-suffix: timestamp
+          branch: robot/update_chart
+          delete-branch: true
+          base: ${{ env.MERGE_BRANCH }}
+          signoff: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          labels: ${{ env.PR_LABEL }}

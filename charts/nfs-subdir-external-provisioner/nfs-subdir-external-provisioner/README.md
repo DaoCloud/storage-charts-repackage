@@ -18,18 +18,7 @@ This charts installs custom [storage class](https://kubernetes.io/docs/concepts/
 ## Prerequisites
 
 - Kubernetes >=1.9
-- Existing NFS export (must be accessable from Kubernetes cluster)
-  - if not exists, setup it (a referrence of https://www.tecmint.com/install-nfs-server-on-ubuntu/)
-  - NFS server address (x.x.x.x or FQDN name)
-  - A NFS export (/exported/path)
-- nfs tools (installed on each node)
-  - CentOS: 
-    - yum install -y nfs-utils rpcbind
-  - Ubuntu:
-    - apt-get update
-    - apt-get install nfs-common
-  - alpine:
-    - apk add nfs-utils
+- Existing NFS Share
 
 ## Installing the Chart
 
@@ -90,7 +79,7 @@ The following tables lists the configurable parameters of this chart and their d
 | `podAnnotations`                    | Additional annotations for the Pods                                                                   | `{}`                                                     |
 | `priorityClassName`                 | Set pod priorityClassName                                                                             | null                                                     |
 | `serviceAccount.create`             | Should we create a ServiceAccount                                                                     | `true`                                                   |
-| `serviceAccount.name`               | Name of the ServiceAccount to use                                                                     | `nfs-subdir-external-provisioner`                                                     |
+| `serviceAccount.name`               | Name of the ServiceAccount to use                                                                     | null                                                     |
 | `serviceAccount.annotations`        | Additional annotations for the ServiceAccount                                                         | `{}`                                                     |
 | `nodeSelector`                      | Node labels for pod assignment                                                                        | `{}`                                                     |
 | `affinity`                          | Affinity settings                                                                                     | `{}`                                                     |
