@@ -2,205 +2,244 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "replicaCount": {
-            "type": "integer",
-            "default": 1
-        },
-        "strategyType": {
-            "type": "string",
-            "anyOf": [
-                {
-                    "ui:title": "Recreate",
-                    "const": "Recreate"
-                },
-                {
-                    "ui:title": "RollingUpdate",
-                    "const": "RollingUpdate"
-                }
-            ],
-            "default": "Recreate"
-        },
-        "image": {
+        "nfs-subdir-external-provisioner": {
+            "title": "The nfs-subdir-external-provisioner Schema",
             "type": "object",
             "properties": {
-                "pullPolicy": {
+                "replicaCount": {
+                    "type": "integer",
+                    "default": 1
+                },
+                "strategyType": {
                     "type": "string",
                     "anyOf": [
                         {
-                            "ui:title": "IfNotPresent",
-                            "const": "IfNotPresent"
+                            "ui:title": "Recreate",
+                            "const": "Recreate"
                         },
                         {
-                            "ui:title": "Always",
-                            "const": "Always"
-                        },
-                        {
-                            "ui:title": "Never",
-                            "const": "Never"
+                            "ui:title": "RollingUpdate",
+                            "const": "RollingUpdate"
                         }
                     ],
-                    "default": "IfNotPresent"                    
+                    "default": "Recreate"
                 },
-                "repository": {
+                "priorityClassName": {
                     "type": "string",
-                    "default": "k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner"
-                },
-                "tag": {
-                    "type": "string",
-                    "default": "v4.0.2"
-                }
-            }
-        },
-        "leaderElection": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "default": true
-                }
-            }
-        },
-        "nfs": {
-            "type": "object",
-            "properties": {
-                "server": {
-                    "type": "string",
+                    "default": "system-cluster-critical",
                     "examples": [
-                        "127.0.0.1",
-                        "nfsserver.example.com"
+                        "system-cluster-critical",
+                        "system-node-critical"
                     ]
                 },
-                "path": {
-                    "type": "string",
-                    "examples": [
-                        "/nfs-shares"
-                    ]
-                },
-                "mountOptions": {
-                    "type": "string",
-                    "examples": [
-                        ""
-                    ]
-                },
-                "reclaimPolicy": {
-                    "type": "string",
-                    "anyOf": [
-                        {
-                            "ui:title": "Retain",
-                            "const": "Retain"
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "pullPolicy": {
+                            "type": "string",
+                            "anyOf": [
+                                {
+                                    "ui:title": "IfNotPresent",
+                                    "const": "IfNotPresent"
+                                },
+                                {
+                                    "ui:title": "Always",
+                                    "const": "Always"
+                                },
+                                {
+                                    "ui:title": "Never",
+                                    "const": "Never"
+                                }
+                            ],
+                            "default": "IfNotPresent"
                         },
-                        {
-                            "ui:title": "Delete",
-                            "const": "Delete"
+                        "repository": {
+                            "type": "string",
+                            "default": "k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner"
+                        },
+                        "tag": {
+                            "type": "string",
+                            "default": "v4.0.2"
                         }
-                    ],
-                    "default": "Retain"
+                    }
                 },
-                "volumeName": {
-                    "type": "string",
-                    "default": "nfs-subdir-external-provisioner-root"
+                "imagePullSecrets": {
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                      "type": "string"
+                    }
+                },
+                "leaderElection": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    }
+                },
+                "nfs": {
+                    "type": "object",
+                    "required": [
+                        "server",
+                        "path",
+                        "volumeName"
+                      ],
+                    "properties": {
+                        "server": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "127.0.0.1",
+                                "nfsserver.example.com"
+                            ]
+                        },
+                        "path": {
+                            "type": "string",
+                            "default": "/nfs-shares",
+                            "examples": [
+                                "/nfs-shares"
+                            ]
+                        },
+                        "mountOptions": {
+                            "type": "array",
+                            "default": [],
+                            "items": {
+                              "type": "string"
+                            }
+                        },
+                        "reclaimPolicy": {
+                            "type": "string",
+                            "anyOf": [
+                                {
+                                    "ui:title": "Retain",
+                                    "const": "Retain"
+                                },
+                                {
+                                    "ui:title": "Delete",
+                                    "const": "Delete"
+                                }
+                            ],
+                            "default": "Retain"
+                        },
+                        "volumeName": {
+                            "type": "string",
+                            "default": "nfs-subdir-external-provisioner-root"
+                        }
+                    }
+                },
+                "rbac": {
+                    "type": "object",
+                    "properties": {
+                        "create": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    }
+                },
+                "serviceAccount": {
+                    "type": "object",
+                    "properties": {
+                        "create": {
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "name": {
+                            "type": "string",
+                            "default": "nfs-subdir-external-provisioner"
+                        }
+                    }
+                },
+                "storageClass": {
+                    "type": "object",
+                    "required": [
+                        "name"
+                      ],
+                    "properties": {
+                        "create": {
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "name": {
+                            "type": "string",
+                            "default": "nfs-client",
+                            "ui:hidden": "{{rootFormData.storageClass.create === false}}"
+                        },
+                        "allowVolumeExpansion": {
+                            "type": "boolean",
+                            "default": true,
+                            "ui:hidden": "{{rootFormData.storageClass.create === false}}"
+                        },
+                        "archiveOnDelete": {
+                            "type": "boolean",
+                            "default": true,
+                            "ui:hidden": "{{rootFormData.storageClass.create === false}}"
+                        },
+                        "defaultClass": {
+                            "type": "boolean",
+                            "default": false,
+                            "ui:hidden": "{{rootFormData.storageClass.create === false}}"
+                        },
+                        "reclaimPolicy": {
+                            "type": "string",
+                            "anyOf": [
+                                {
+                                    "ui:title": "Delete",
+                                    "const": "Delete"
+                                },
+                                {
+                                    "ui:title": "Retain",
+                                    "const": "Retain"
+                                },
+                                {
+                                    "ui:title": "Recycle",
+                                    "const": "Recycle"
+                                }
+                            ],
+                            "default": "Delete",
+                            "ui:hidden": "{{rootFormData.storageClass.create === false}}"
+                        },
+                        "volumeBindingMode": {
+                            "type": "string",
+                            "anyOf": [
+                                {
+                                    "ui:title": "Immediate",
+                                    "const": "Immediate"
+                                },
+                                {
+                                    "ui:title": "WaitForFirstConsumer",
+                                    "const": "WaitForFirstConsumer"
+                                }
+                            ],
+                            "default": "Immediate",
+                            "ui:hidden": "{{rootFormData.storageClass.create === false}}"
+                        },
+                        "accessModes": {
+                            "type": "string",
+                            "anyOf": [
+                                {
+                                    "ui:title": "ReadWriteOnce",
+                                    "const": "ReadWriteOnce"
+                                },
+                                {
+                                    "ui:title": "ReadWriteMany",
+                                    "const": "ReadWriteMany"
+                                },
+                                {
+                                    "ui:title": "ReadOnlyMany",
+                                    "const": "ReadOnlyMany"
+                                },
+                                {
+                                    "ui:title": "ReadWriteOncePod",
+                                    "const": "ReadWriteOncePod"
+                                }
+                            ],
+                            "default": "ReadWriteOnce",
+                            "ui:hidden": "{{rootFormData.storageClass.create === false}}"
+                        }
+                    }
                 }
-            }
-        },
-        "rbac": {
-            "type": "object",
-            "properties": {
-                "create": {
-                    "type": "boolean",
-                    "default": true
-                }
-            }
-        },
-        "serviceAccount": {
-            "type": "object",
-            "properties": {
-               "create": {
-                "type": "boolean",
-                "default": true
-            },
-                "name": {
-                    "type": "string",
-                    "default": "nfs-subdir-external-provisioner"
-                }
-            }
-        },
-        "storageClass": {
-            "type": "object",
-            "properties": {
-                "accessModes": {
-                    "type": "string",
-                    "anyOf": [
-                        {
-                            "ui:title": "ReadWriteOnce",
-                            "const": "ReadWriteOnce"
-                        },
-                        {
-                            "ui:title": "ReadWriteMany",
-                            "const": "ReadWriteMany"
-                        },
-                        {
-                            "ui:title": "ReadOnlyMany",
-                            "const": "ReadOnlyMany"
-                        },
-                        {
-                            "ui:title": "ReadWriteOncePod",
-                            "const": "ReadWriteOncePod"
-                        }
-                    ],
-                    "default": "ReadWriteOnce"
-                },
-                "allowVolumeExpansion": {
-                    "type": "boolean",
-                    "default": true
-                },
-                "archiveOnDelete": {
-                    "type": "boolean",
-                    "default": true
-                },
-                "create": {
-                    "type": "boolean",
-                    "default": true
-                },
-                "defaultClass": {
-                    "type": "boolean",
-                    "default": false
-                },
-                "name": {
-                    "type": "string",
-                    "default": "nfs-client"
-                },
-                "reclaimPolicy": {
-                    "type": "string",
-                    "anyOf": [
-                        {
-                            "ui:title": "Delete",
-                            "const": "Delete"
-                        },
-                        {
-                            "ui:title": "Retain",
-                            "const": "Retain"
-                        },
-                        {
-                            "ui:title": "Recycle",
-                            "const": "Recycle"
-                        }
-                    ],
-                    "default": "Delete"
-                },
-                "volumeBindingMode": {
-                    "type": "string",
-                    "anyOf": [
-                        {
-                            "ui:title": "Immediate",
-                            "const": "Immediate"
-                        },
-                        {
-                            "ui:title": "WaitForFirstConsumer",
-                            "const": "WaitForFirstConsumer"
-                        }
-                    ],
-                    "default": "Immediate"
-               }
             }
         }
     }

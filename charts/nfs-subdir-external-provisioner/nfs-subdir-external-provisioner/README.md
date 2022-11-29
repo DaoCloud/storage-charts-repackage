@@ -2,8 +2,6 @@
 
 The [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner) is an automatic provisioner for Kubernetes that uses your *already configured* NFS server, automatically creating Persistent Volumes.
 
-## TL;DR;
-
 ```console
 $ helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
 $ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
@@ -19,7 +17,7 @@ This charts installs custom [storage class](https://kubernetes.io/docs/concepts/
 
 - Kubernetes >=1.9
 - Existing NFS Export (accessable from Kubernetes cluster)
-  - If not exists, setup it (one of referrences: https://qizhanming.com/blog/2018/08/08/how-to-install-nfs-on-centos-7)
+  - If not exists, setup it (one of referrences: <https://qizhanming.com/blog/2018/08/08/how-to-install-nfs-on-centos-7>)
   - NFS server (x.x.x.x, or FQDN name)
   - NFS export (e.g. /exported/path)
 - NFS tools (installed on each node)
@@ -50,7 +48,7 @@ The command deploys the given storage class in the default configuration. It can
 To uninstall/delete the `my-release` deployment:
 
 ```console
-$ helm delete my-release
+helm delete my-release
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.

@@ -10,7 +10,7 @@ nfs-subdir-external-provisioner:
     tag: v4.0.2
     pullPolicy: IfNotPresent
   
-  #imagePullSecrets: []
+  imagePullSecrets: []
   
   nfs:
     server: 127.0.0.1
@@ -92,13 +92,14 @@ nfs-subdir-external-provisioner:
     requests:
       cpu: 100m
       memory: 128Mi
-  
+
+  priorityClassName: ""
+
 
   # Deployment pod annotations
   # podAnnotations: {}
   
   ## Set pod priorityClassName
-  # priorityClassName: ""
 
   # podSecurityPolicy:
   #   enabled: false
