@@ -1,16 +1,19 @@
 # child values
 nfs-subdir-external-provisioner:
+
   replicaCount: 1
+
   strategyType: Recreate
   
   image:
     repository: k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner
     tag: v4.0.2
     pullPolicy: IfNotPresent
-  imagePullSecrets: []
+  
+  #imagePullSecrets: []
   
   nfs:
-    server:
+    server: 127.0.0.1
     path: /nfs-storage
     mountOptions:
     volumeName: nfs-subdir-external-provisioner-root
@@ -44,11 +47,11 @@ nfs-subdir-external-provisioner:
     # If it exists and has 'delete' value, delete the directory. If it exists and has 'retain' value, save the directory.
     # Overrides archiveOnDelete.
     # Ignored if value not set.
-    onDelete:
+    #onDelete:
   
     # Specifies a template for creating a directory path via PVC metadata's such as labels, annotations, name or namespace.
     # Ignored if value not set.
-    pathPattern:
+    #pathPattern:
   
     # Set access mode - ReadWriteOnce, ReadOnlyMany or ReadWriteMany
     accessModes: ReadWriteOnce
@@ -57,7 +60,7 @@ nfs-subdir-external-provisioner:
     volumeBindingMode: Immediate
   
     # Storage class annotations
-    annotations: {}
+    #annotations: {}
   
   leaderElection:
     # When set to false leader election will be disabled
@@ -70,43 +73,45 @@ nfs-subdir-external-provisioner:
   
   # If true, create & use Pod Security Policy resources
   # https://kubernetes.io/docs/concepts/policy/pod-security-policy/
-  podSecurityPolicy:
-    enabled: false
-  
-  # Deployment pod annotations
-  podAnnotations: {}
-  
-  ## Set pod priorityClassName
-  # priorityClassName: ""
-  
-  podSecurityContext: {}
-  
-  securityContext: {}
   
   serviceAccount:
     # Specifies whether a ServiceAccount should be created
     create: true
   
     # Annotations to add to the service account
-    annotations: {}
+    #annotations: {}
   
     # The name of the ServiceAccount to use.
     # If not set and create is true, a name is generated using the fullname template
-    name:
+    name: nfs-subdir-external-provisioner
   
-  resources: {}
-    # limits:
-    #  cpu: 100m
-    #  memory: 128Mi
-    # requests:
-    #  cpu: 100m
-    #  memory: 128Mi
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
   
-  nodeSelector: {}
+
+  # Deployment pod annotations
+  # podAnnotations: {}
   
-  tolerations: []
+  ## Set pod priorityClassName
+  # priorityClassName: ""
+
+  # podSecurityPolicy:
+  #   enabled: false
+
+  # podSecurityContext: {}
   
-  affinity: {}
+  # securityContext: {}
+  
+  # nodeSelector: {}
+  
+  # tolerations: []
+  
+  # affinity: {}
   
   # Additional labels for any resource created
-  labels: {}
+  # labels: {}

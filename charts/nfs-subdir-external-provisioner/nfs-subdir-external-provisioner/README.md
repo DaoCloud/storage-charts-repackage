@@ -18,7 +18,18 @@ This charts installs custom [storage class](https://kubernetes.io/docs/concepts/
 ## Prerequisites
 
 - Kubernetes >=1.9
-- Existing NFS Share
+- Existing NFS Export (accessable from Kubernetes cluster)
+  - If not exists, setup it (one of referrences: https://qizhanming.com/blog/2018/08/08/how-to-install-nfs-on-centos-7)
+  - NFS server (x.x.x.x, or FQDN name)
+  - NFS export (e.g. /exported/path)
+- NFS tools (installed on each node)
+  - CentOS:
+    - yum install -y nfs-utils
+  - Ubuntu:
+    - apt-get update
+    - apt-get install nfs-common
+  - Alpine:
+    - apk add nfs-utils
 
 ## Installing the Chart
 
