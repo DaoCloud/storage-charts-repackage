@@ -90,6 +90,13 @@
                         "/nfs-shares"
                     ]
                 },
+                "mountOptions": {
+                    "type": "array",
+                    "default": [ "debug" ],
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "reclaimPolicy": {
                     "type": "string",
                     "anyOf": [
