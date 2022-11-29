@@ -106,7 +106,8 @@
             "type": "object",
             "properties": {
                 "create": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 }
             }
         },
@@ -114,8 +115,9 @@
             "type": "object",
             "properties": {
                "create": {
-                    "type": "boolean"
-                },
+                "type": "boolean",
+                "default": true
+            },
                 "name": {
                     "type": "string",
                     "default": "nfs-subdir-external-provisioner"
@@ -148,16 +150,20 @@
                     "default": "ReadWriteOnce"
                 },
                 "allowVolumeExpansion": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 },
                 "archiveOnDelete": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 },
                 "create": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 },
                 "defaultClass": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "name": {
                     "type": "string",
