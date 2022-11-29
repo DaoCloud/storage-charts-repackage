@@ -91,11 +91,8 @@
                     ]
                 },
                 "mountOptions": {
-                    "type": "array",
-                    "default": [ "debug" ],
-                    "items": {
-                        "type": "string"
-                    }
+                    "type": "string",
+                    "default": ""
                 },
                 "reclaimPolicy": {
                     "type": "string",
