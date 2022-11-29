@@ -3,22 +3,51 @@
     "type": "object",
     "properties": {
         "replicaCount": {
-            "type": "integer"
+            "type": "integer",
+            "default": 1
         },
         "strategyType": {
-            "type": "string"
+            "type": "string",
+            "anyOf": [
+                {
+                    "ui:title": "Recreate",
+                    "const": "Recreate"
+                },
+                {
+                    "ui:title": "RollingUpdate",
+                    "const": "RollingUpdate"
+                }
+            ],
+            "default": "Recreate"
         },
         "image": {
             "type": "object",
             "properties": {
                 "pullPolicy": {
-                    "type": "string"
+                    "type": "string",
+                    "anyOf": [
+                        {
+                            "ui:title": "IfNotPresent",
+                            "const": "IfNotPresent"
+                        },
+                        {
+                            "ui:title": "Always",
+                            "const": "Always"
+                        },
+                        {
+                            "ui:title": "Never",
+                            "const": "Never"
+                        }
+                    ],
+                    "default": "IfNotPresent"                    
                 },
                 "repository": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner"
                 },
                 "tag": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "v4.0.2"
                 }
             }
         },
@@ -26,7 +55,8 @@
             "type": "object",
             "properties": {
                 "enabled": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 }
             }
         },
@@ -34,19 +64,41 @@
             "type": "object",
             "properties": {
                 "server": {
-                    "type": "string"
+                    "type": "string",
+                    "examples": [
+                        "127.0.0.1",
+                        "nfsserver.example.com"
+                    ]
                 },
                 "path": {
-                    "type": "string"
+                    "type": "string",
+                    "examples": [
+                        "/nfs-shares"
+                    ]
                 },
                 "mountOptions": {
-                    "type": "string"
+                    "type": "string",
+                    "examples": [
+                        ""
+                    ]
                 },
                 "reclaimPolicy": {
-                    "type": "string"
+                    "type": "string",
+                    "anyOf": [
+                        {
+                            "ui:title": "Retain",
+                            "const": "Retain"
+                        },
+                        {
+                            "ui:title": "Delete",
+                            "const": "Delete"
+                        }
+                    ],
+                    "default": "Retain"
                 },
                 "volumeName": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "nfs-subdir-external-provisioner-root"
                 }
             }
         },
@@ -65,7 +117,8 @@
                     "type": "boolean"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "nfs-subdir-external-provisioner"
                 }
             }
         },
@@ -73,7 +126,26 @@
             "type": "object",
             "properties": {
                 "accessModes": {
-                    "type": "string"
+                    "type": "string",
+                    "anyOf": [
+                        {
+                            "ui:title": "ReadWriteOnce",
+                            "const": "ReadWriteOnce"
+                        },
+                        {
+                            "ui:title": "ReadWriteMany",
+                            "const": "ReadWriteMany"
+                        },
+                        {
+                            "ui:title": "ReadOnlyMany",
+                            "const": "ReadOnlyMany"
+                        },
+                        {
+                            "ui:title": "ReadWriteOncePod",
+                            "const": "ReadWriteOncePod"
+                        }
+                    ],
+                    "default": "ReadWriteOnce"
                 },
                 "allowVolumeExpansion": {
                     "type": "boolean"
@@ -88,14 +160,41 @@
                     "type": "boolean"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "nfs-client"
                 },
                 "reclaimPolicy": {
-                    "type": "string"
+                    "type": "string",
+                    "anyOf": [
+                        {
+                            "ui:title": "Delete",
+                            "const": "Delete"
+                        },
+                        {
+                            "ui:title": "Retain",
+                            "const": "Retain"
+                        },
+                        {
+                            "ui:title": "Recycle",
+                            "const": "Recycle"
+                        }
+                    ],
+                    "default": "Delete"
                 },
                 "volumeBindingMode": {
-                    "type": "string"
-                }
+                    "type": "string",
+                    "anyOf": [
+                        {
+                            "ui:title": "Immediate",
+                            "const": "Immediate"
+                        },
+                        {
+                            "ui:title": "WaitForFirstConsumer",
+                            "const": "WaitForFirstConsumer"
+                        }
+                    ],
+                    "default": "Immediate"
+               }
             }
         }
     }
