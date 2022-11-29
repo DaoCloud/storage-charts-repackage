@@ -20,14 +20,6 @@
             ],
             "default": "Recreate"
         },
-        "priorityClassName": {
-            "type": "string",
-            "default": "system-cluster-critical",
-            "examples": [
-                "system-cluster-critical",
-                "system-node-critical"
-            ]
-        },
         "image": {
             "type": "object",
             "properties": {
@@ -99,8 +91,11 @@
                     ]
                 },
                 "mountOptions": {
-                    "type": "string",
-                    "default": ""
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "reclaimPolicy": {
                     "type": "string",

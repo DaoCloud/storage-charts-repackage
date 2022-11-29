@@ -91,13 +91,12 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-priorityClassName: ""
-
 
 # Deployment pod annotations
 # podAnnotations: {}
 
 ## Set pod priorityClassName
+# priorityClassName: ""
 
 # podSecurityPolicy:
 #   enabled: false
