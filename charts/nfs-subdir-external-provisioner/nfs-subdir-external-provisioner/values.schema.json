@@ -58,6 +58,15 @@
                 "type": "string"
             }
         },
+        "podSecurityPolicy": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false
+                }
+            }
+        },
         "leaderElection": {
             "type": "object",
             "properties": {
