@@ -1,0 +1,10 @@
+export USE_OPENSOURCE_CHART=false
+
+# must
+export REPO_URL=https://charts.longhorn.io
+export REPO_NAME=longhorn
+export CHART_NAME=longhorn
+export VERSION=1.3.2
+
+# push to daocloud repo
+export DAOCLOUD_REPO_PROJECT=addon

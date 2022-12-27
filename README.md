@@ -1,5 +1,5 @@
-# nfs-subdir-external-provisioner-charts-repackage
-[![Release Chart](https://github.com/DaoCloud/nfs-subdir-external-provisioner-charts-repackage/actions/workflows/release-chart.yml/badge.svg)](https://github.com/DaoCloud/nfs-subdir-external-provisioner-charts-repackage/actions/workflows/release-chart.yml)
+# storage-charts-repackage
+[![Release Chart](https://github.com/DaoCloud/storage-charts-repackage/actions/workflows/release-chart.yml/badge.svg)](https://github.com/DaoCloud/storage-charts-repackage/actions/workflows/release-chart.yml)
 
 ## requirement
 
@@ -69,7 +69,7 @@ CI 还会并发送一份到 daocloud 仓库 ( 推送到哪个项目下？依据 
 
 你可使用 本工程的 chart repo 来测试
 
-    helm repo add daocloud https://daocloud.github.io/nfs-subdir-external-provisioner-charts-repackage/
+    helm repo add daocloud https://daocloud.github.io/storage-charts-repackage/
     helm pull daocloud/${PROJECT}
 
 > 如果只 需要 发布 某一个项目 chart ，可 在 github action 中手动触发 "Release Chart" action， 触发推送指定chart

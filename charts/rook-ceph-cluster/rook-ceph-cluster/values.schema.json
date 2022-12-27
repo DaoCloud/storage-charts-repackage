@@ -1,0 +1,949 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "cephBlockPools": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "spec": {
+                        "type": "object",
+                        "properties": {
+                            "failureDomain": {
+                                "type": "string"
+                            },
+                            "replicated": {
+                                "type": "object",
+                                "properties": {
+                                    "size": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "storageClass": {
+                        "type": "object",
+                        "properties": {
+                            "allowVolumeExpansion": {
+                                "type": "boolean"
+                            },
+                            "enabled": {
+                                "type": "boolean"
+                            },
+                            "isDefault": {
+                                "type": "boolean"
+                            },
+                            "mountOptions": {
+                                "type": "array"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "parameters": {
+                                "type": "object",
+                                "properties": {
+                                    "csi.storage.k8s.io/controller-expand-secret-name": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/controller-expand-secret-namespace": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/fstype": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/node-stage-secret-name": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/node-stage-secret-namespace": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/provisioner-secret-name": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/provisioner-secret-namespace": {
+                                        "type": "string"
+                                    },
+                                    "imageFeatures": {
+                                        "type": "string"
+                                    },
+                                    "imageFormat": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "reclaimPolicy": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "cephBlockPoolsVolumeSnapshotClass": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "deletionPolicy": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "isDefault": {
+                    "type": "boolean"
+                },
+                "labels": {
+                    "type": "object"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parameters": {
+                    "type": "object"
+                }
+            }
+        },
+        "cephClusterSpec": {
+            "type": "object",
+            "properties": {
+                "cephVersion": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsupported": {
+                            "type": "boolean"
+                        },
+                        "image": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "cleanupPolicy": {
+                    "type": "object",
+                    "properties": {
+                        "allowUninstallWithVolumes": {
+                            "type": "boolean"
+                        },
+                        "confirmation": {
+                            "type": "string"
+                        },
+                        "sanitizeDisks": {
+                            "type": "object",
+                            "properties": {
+                                "dataSource": {
+                                    "type": "string"
+                                },
+                                "iteration": {
+                                    "type": "integer"
+                                },
+                                "method": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "continueUpgradeAfterChecksEvenIfNotHealthy": {
+                    "type": "boolean"
+                },
+                "crashCollector": {
+                    "type": "object",
+                    "properties": {
+                        "disable": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "dashboard": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "ssl": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "dataDirHostPath": {
+                    "type": "string"
+                },
+                "disruptionManagement": {
+                    "type": "object",
+                    "properties": {
+                        "machineDisruptionBudgetNamespace": {
+                            "type": "string"
+                        },
+                        "manageMachineDisruptionBudgets": {
+                            "type": "boolean"
+                        },
+                        "managePodBudgets": {
+                            "type": "boolean"
+                        },
+                        "osdMaintenanceTimeout": {
+                            "type": "integer"
+                        },
+                        "pgHealthCheckTimeout": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "healthCheck": {
+                    "type": "object",
+                    "properties": {
+                        "daemonHealth": {
+                            "type": "object",
+                            "properties": {
+                                "mon": {
+                                    "type": "object",
+                                    "properties": {
+                                        "disabled": {
+                                            "type": "boolean"
+                                        },
+                                        "interval": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "osd": {
+                                    "type": "object",
+                                    "properties": {
+                                        "disabled": {
+                                            "type": "boolean"
+                                        },
+                                        "interval": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "status": {
+                                    "type": "object",
+                                    "properties": {
+                                        "disabled": {
+                                            "type": "boolean"
+                                        },
+                                        "interval": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "livenessProbe": {
+                            "type": "object",
+                            "properties": {
+                                "mgr": {
+                                    "type": "object",
+                                    "properties": {
+                                        "disabled": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "mon": {
+                                    "type": "object",
+                                    "properties": {
+                                        "disabled": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "osd": {
+                                    "type": "object",
+                                    "properties": {
+                                        "disabled": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "logCollector": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "maxLogSize": {
+                            "type": "string"
+                        },
+                        "periodicity": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "mgr": {
+                    "type": "object",
+                    "properties": {
+                        "allowMultiplePerNode": {
+                            "type": "boolean"
+                        },
+                        "count": {
+                            "type": "integer"
+                        },
+                        "modules": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "enabled": {
+                                        "type": "boolean"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "mon": {
+                    "type": "object",
+                    "properties": {
+                        "allowMultiplePerNode": {
+                            "type": "boolean"
+                        },
+                        "count": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "priorityClassNames": {
+                    "type": "object",
+                    "properties": {
+                        "mgr": {
+                            "type": "string"
+                        },
+                        "mon": {
+                            "type": "string"
+                        },
+                        "osd": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "removeOSDsIfOutAndSafeToRemove": {
+                    "type": "boolean"
+                },
+                "resources": {
+                    "type": "object",
+                    "properties": {
+                        "cleanup": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "crashcollector": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "logcollector": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "mgr": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "mgr-sidecar": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "mon": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "osd": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "prepareosd": {
+                            "type": "object",
+                            "properties": {
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "skipUpgradeChecks": {
+                    "type": "boolean"
+                },
+                "storage": {
+                    "type": "object",
+                    "properties": {
+                        "useAllDevices": {
+                            "type": "boolean"
+                        },
+                        "useAllNodes": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "waitTimeoutForHealthyOSDInMinutes": {
+                    "type": "integer"
+                }
+            }
+        },
+        "cephFileSystemVolumeSnapshotClass": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "deletionPolicy": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "isDefault": {
+                    "type": "boolean"
+                },
+                "labels": {
+                    "type": "object"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parameters": {
+                    "type": "object"
+                }
+            }
+        },
+        "cephFileSystems": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "spec": {
+                        "type": "object",
+                        "properties": {
+                            "dataPools": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "failureDomain": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "replicated": {
+                                            "type": "object",
+                                            "properties": {
+                                                "size": {
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "metadataPool": {
+                                "type": "object",
+                                "properties": {
+                                    "replicated": {
+                                        "type": "object",
+                                        "properties": {
+                                            "size": {
+                                                "type": "integer"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "metadataServer": {
+                                "type": "object",
+                                "properties": {
+                                    "activeCount": {
+                                        "type": "integer"
+                                    },
+                                    "activeStandby": {
+                                        "type": "boolean"
+                                    },
+                                    "priorityClassName": {
+                                        "type": "string"
+                                    },
+                                    "resources": {
+                                        "type": "object",
+                                        "properties": {
+                                            "limits": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "cpu": {
+                                                        "type": "string"
+                                                    },
+                                                    "memory": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "requests": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "cpu": {
+                                                        "type": "string"
+                                                    },
+                                                    "memory": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "storageClass": {
+                        "type": "object",
+                        "properties": {
+                            "allowVolumeExpansion": {
+                                "type": "boolean"
+                            },
+                            "enabled": {
+                                "type": "boolean"
+                            },
+                            "isDefault": {
+                                "type": "boolean"
+                            },
+                            "mountOptions": {
+                                "type": "array"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "parameters": {
+                                "type": "object",
+                                "properties": {
+                                    "csi.storage.k8s.io/controller-expand-secret-name": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/controller-expand-secret-namespace": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/fstype": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/node-stage-secret-name": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/node-stage-secret-namespace": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/provisioner-secret-name": {
+                                        "type": "string"
+                                    },
+                                    "csi.storage.k8s.io/provisioner-secret-namespace": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "pool": {
+                                "type": "string"
+                            },
+                            "reclaimPolicy": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "cephObjectStores": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "spec": {
+                        "type": "object",
+                        "properties": {
+                            "dataPool": {
+                                "type": "object",
+                                "properties": {
+                                    "erasureCoded": {
+                                        "type": "object",
+                                        "properties": {
+                                            "codingChunks": {
+                                                "type": "integer"
+                                            },
+                                            "dataChunks": {
+                                                "type": "integer"
+                                            }
+                                        }
+                                    },
+                                    "failureDomain": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "gateway": {
+                                "type": "object",
+                                "properties": {
+                                    "instances": {
+                                        "type": "integer"
+                                    },
+                                    "port": {
+                                        "type": "integer"
+                                    },
+                                    "priorityClassName": {
+                                        "type": "string"
+                                    },
+                                    "resources": {
+                                        "type": "object",
+                                        "properties": {
+                                            "limits": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "cpu": {
+                                                        "type": "string"
+                                                    },
+                                                    "memory": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "requests": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "cpu": {
+                                                        "type": "string"
+                                                    },
+                                                    "memory": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "healthCheck": {
+                                "type": "object",
+                                "properties": {
+                                    "bucket": {
+                                        "type": "object",
+                                        "properties": {
+                                            "interval": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "metadataPool": {
+                                "type": "object",
+                                "properties": {
+                                    "failureDomain": {
+                                        "type": "string"
+                                    },
+                                    "replicated": {
+                                        "type": "object",
+                                        "properties": {
+                                            "size": {
+                                                "type": "integer"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "preservePoolsOnDelete": {
+                                "type": "boolean"
+                            }
+                        }
+                    },
+                    "storageClass": {
+                        "type": "object",
+                        "properties": {
+                            "enabled": {
+                                "type": "boolean"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "parameters": {
+                                "type": "object",
+                                "properties": {
+                                    "region": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "reclaimPolicy": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "ingress": {
+            "type": "object",
+            "properties": {
+                "dashboard": {
+                    "type": "object"
+                }
+            }
+        },
+        "monitoring": {
+            "type": "object",
+            "properties": {
+                "createPrometheusRules": {
+                    "type": "boolean"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "prometheusRule": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object"
+                        },
+                        "labels": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "rulesNamespaceOverride": {
+                    "type": "null"
+                }
+            }
+        },
+        "operatorNamespace": {
+            "type": "string"
+        },
+        "pspEnable": {
+            "type": "boolean"
+        },
+        "toolbox": {
+            "type": "object",
+            "properties": {
+                "affinity": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "resources": {
+                    "type": "object",
+                    "properties": {
+                        "limits": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": "string"
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "requests": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": "string"
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tolerations": {
+                    "type": "array"
+                }
+            }
+        }
+    }
+}
