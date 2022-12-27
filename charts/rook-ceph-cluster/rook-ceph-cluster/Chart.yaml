@@ -10,3 +10,7 @@ name: rook-ceph-cluster
 sources:
 - https://github.com/rook/rook
 version: v1.10.5
+keywords:
+- rook
+- ceph
+- storage
