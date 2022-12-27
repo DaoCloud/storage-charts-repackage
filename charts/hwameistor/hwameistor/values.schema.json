@@ -1,0 +1,163 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "global": {
+            "title": "Global Settings",
+            "type": "object",
+            "default": {},
+            "required": [
+                "GlobalImageRegistry",
+                "K8sImageRegistry",
+                "KubeletRootDir"
+            ],
+            "properties": {
+                "GlobalImageRegistry": {
+                    "title": "Global Image Registry",
+                    "type": "string",
+                    "default": "ghcr.io",
+                    "examples": [
+                        "ghcr.io"
+                    ]
+                },
+                "K8sImageRegistry": {
+                    "title": "K8s Image Registry",
+                    "type": "string",
+                    "default": "k8s.gcr.io",
+                    "examples": [
+                        "k8s.gcr.io"
+                    ]
+                },
+                "KubeletRootDir": {
+                    "title": "Kubelet Root Dir",
+                    "type": "string",
+                    "default": "/var/lib/kubelet",
+                    "examples": [
+                        "/var/lib/kubelet"
+                    ]
+                }
+            }
+        },
+        "config": {
+            "title": "Config Settings",
+            "type": "object",
+            "default": {},
+            "required": [
+                "EnableDRBD",
+                "DRBDStartPort",
+                "MaxHAVolumeCount"
+            ],
+            "properties": {
+                "EnableDRBD": {
+                    "title": "EnableDRBD",
+                    "type": "boolean",
+                    "description": "drbd module will be installed, StorageClass can be enabled HA mode when DRBD enabled"
+                },
+                "DRBDStartPort": {
+                    "title": "DRBDStartPort",
+                    "type": "integer",
+                    "default": 43001
+                },
+                "MaxHAVolumeCount": {
+                    "title": "MaxHAVolumeCount",
+                    "type": "integer",
+                    "default": 1000
+                }
+            }
+        },
+        "storage class": {
+            "title": "Storage Class Settings",
+            "type": "array",
+            "items": {
+                "properties": {
+                    "DiskType": {
+                        "title": "DiskType",
+                        "type": "string",
+                        "anyOf": [
+                            {
+                                "title": "HDD",
+                                "const": "HDD"
+                            },
+                            {
+                                "ui:title": "SSD",
+                                "const": "SSD"
+                            }
+                        ],
+                        "default": "HDD",
+                        "description": "Represent which kind disk will be used to provision volume"
+                    },
+                    "ProvisionerType": {
+                        "title": "ProvisionerType",
+                        "type": "string",
+                        "anyOf": [
+                            {
+                                "title": "LVM",
+                                "const": "LVM"
+                            },
+                            {
+                                "ui:title": "Raw Disk",
+                                "const": "Raw Disk"
+                            }
+                        ],
+                        "default": "LVM"
+                    },
+                    "EnableHA": {
+                        "title": "EnableHA",
+                        "type": "boolean",
+                        "description": "If enabled, you need install drbd kernel module on each node first",
+                        "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}"
+                    },
+                    "Replicas": {
+                        "title": "Replicas",
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Replicas can be converted from 1 to 2 when HA is enabled"
+                    },
+                    "ReclaimPolicy": {
+                        "title": "ReclaimPolicy",
+                        "type": "string",
+                        "anyOf": [
+                            {
+                                "ui:title": "Retain",
+                                "const": "Retain"
+                            },
+                            {
+                                "ui:title": "Delete",
+                                "const": "Delete"
+                            }
+                        ],
+                        "default": "Retain"
+                    },
+                    "Snapshot": {
+                        "title": "Snapshot",
+                        "type": "boolean",
+                        "default": true,
+                        "description": "If enabled, volume can support snapshot feature"
+                    },
+                    "Resize": {
+                        "title": "Resize",
+                        "type": "boolean",
+                        "default": false,
+                        "description": "If enabled, volume can support resize feature"
+                    },
+                    "VolumeBindingMode": {
+                        "title": "VolumeBindingMode",
+                        "type": "string",
+                        "anyOf": [
+                            {
+                                "title": "WaitForFirstConsumer",
+                                "const": "WaitForFirstConsumer"
+                            },
+                            {
+                                "ui:title": "Immediate",
+                                "const": "Immediate"
+                            }
+                        ],
+                        "default": "WaitForFirstConsumer",
+                        "description": "PVC will wait to be created until it is mounted to pod"
+                    }
+                }
+            }
+        }
+    }
+}

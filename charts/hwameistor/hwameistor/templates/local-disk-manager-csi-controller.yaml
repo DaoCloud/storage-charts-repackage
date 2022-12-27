@@ -1,0 +1,67 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: hwameistor-local-disk-csi-controller
+  namespace: {{ .Release.Namespace}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hwameistor-local-disk-csi-controller
+  template:
+    metadata:
+      labels:
+        app: hwameistor-local-disk-csi-controller
+    spec:
+      priorityClassName: {{ .Values.localDiskManagerCSIController.priorityClassName }}
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - hwameistor-local-disk-manager
+            topologyKey: topology.disk.hwameistor.io/node
+      serviceAccount: hwameistor-admin
+      containers:
+        - name: provisioner
+          resources: 
+            {{- toYaml .Values.localDiskManagerCSIController.provisioner.resources | nindent 12 }}
+          image: {{ .Values.global.k8sImageRegistry}}/{{ .Values.localDiskManagerCSIController.provisioner.imageRepository}}:{{ .Values.localDiskManagerCSIController.provisioner.tag}}
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - "--v=5"
+            - "--csi-address=$(CSI_ADDRESS)"
+            - "--leader-election=true"
+            - "--feature-gates=Topology=true"
+            - "--strict-topology"
+            - "--extra-create-metadata=true"
+          env:
+            - name: CSI_ADDRESS
+              value: /csi/csi.sock
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+        - name: attacher
+          resources: 
+            {{- toYaml .Values.localDiskManagerCSIController.attacher.resources | nindent 12 }}
+          image: {{ .Values.global.k8sImageRegistry}}/{{ .Values.localDiskManagerCSIController.attacher.imageRepository}}:{{ .Values.localDiskManagerCSIController.attacher.tag}}
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--v=5"
+            - "--csi-address=$(CSI_ADDRESS)"
+            - "--leader-election=true"
+            - "--timeout=120s"
+          env:
+            - name: CSI_ADDRESS
+              value: /csi/csi.sock
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+      volumes:
+        - name: socket-dir
+          hostPath:
+            path: {{ template "hwameistor.kubeletRootDir" . }}/plugins/disk.hwameistor.io
+            type: DirectoryOrCreate

@@ -1,0 +1,144 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: hwameistor-local-disk-manager
+  namespace: {{ .Release.Namespace}}
+spec:
+  selector:
+    matchLabels:
+      app: hwameistor-local-disk-manager
+  template:
+    metadata:
+      labels:
+        app: hwameistor-local-disk-manager
+    spec:
+      hostNetwork: true
+      hostPID: true
+      serviceAccountName: hwameistor-admin
+      containers:
+{{- if .Values.localDiskManager.enableCSI }}  
+        - name: registrar
+          resources: 
+            {{- toYaml .Values.localDiskManager.registrar.resources | nindent 12 }}
+          image: {{ .Values.global.k8sImageRegistry }}/{{ .Values.localDiskManager.registrar.imageRepository }}:{{ .Values.localDiskManager.registrar.tag }}
+          imagePullPolicy: IfNotPresent
+          args:
+            - --v=5
+            - --csi-address=/csi/csi.sock
+            - --kubelet-registration-path={{ template "hwameistor.kubeletRootDir" . }}/plugins/disk.hwameistor.io/csi.sock
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "/bin/sh", "-c", "rm -rf /registration/disk.hwameistor.io  /registration/disk.hwameistor.io-reg.sock" ]
+          env:
+              - name: KUBE_NODE_NAME
+                valueFrom:
+                  fieldRef:
+                    fieldPath: spec.nodeName
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+            - name: registration-dir
+              mountPath: /registration
+{{- end }}
+        - name: manager
+          resources: 
+            {{- toYaml .Values.localDiskManager.manager.resources | nindent 12 }}
+          # Replace this with the built image name
+          image: {{ .Values.global.hwameistorImageRegistry }}/{{ .Values.localDiskManager.manager.imageRepository}}:{{ template "hwameistor.localdiskmanagerImageTag" . }}
+          command:
+          - /local-disk-manager
+          args:
+            - --endpoint=$(CSI_ENDPOINT)
+            - --nodeid=$(NODENAME)
+            - --csi-enable={{ .Values.localDiskManager.enableCSI }}
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+          - name: udev
+            mountPath: /run/udev
+          - name: procmount
+            mountPath: /host/proc
+            readOnly: true
+          - name: devmount
+            mountPath: /dev
+          - name: registration-dir
+            mountPath: {{ template "hwameistor.kubeletRootDir" . }}/plugins_registry
+          - name: plugin-dir
+            mountPath: {{ template "hwameistor.kubeletRootDir" . }}/plugins
+            mountPropagation: "Bidirectional"
+          - name: pods-mount-dir
+            mountPath: {{ template "hwameistor.kubeletRootDir" . }}/pods
+            mountPropagation: "Bidirectional"
+          env:
+            - name: CSI_ENDPOINT
+              value: unix:/{{ template "hwameistor.kubeletRootDir" . }}/plugins/disk.hwameistor.io/csi.sock
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NODENAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: OPERATOR_NAME
+              value: "local-disk-manager"
+          securityContext:
+            privileged: true
+      volumes:
+      - name: udev
+        hostPath:
+          path: /run/udev
+          type: Directory
+      - name: procmount
+        # mount /proc/1/mounts (mount file of process 1 of host) inside container
+        # to read which partition is mounted on / path
+        hostPath:
+          path: /proc
+          type: Directory
+      - name: devmount
+        # the /dev directory is mounted so that we have access to the devices that
+        # are connected at runtime of the pod.
+        hostPath:
+          path: /dev
+          type: Directory
+      - name: socket-dir
+        hostPath:
+          path: {{ template "hwameistor.kubeletRootDir" . }}/plugins/disk.hwameistor.io
+          type: DirectoryOrCreate
+      - name: registration-dir
+        hostPath:
+          path: {{ template "hwameistor.kubeletRootDir" . }}/plugins_registry/
+          type: Directory
+      - name: plugin-dir
+        hostPath:
+          path: {{ template "hwameistor.kubeletRootDir" . }}/plugins
+          type: DirectoryOrCreate
+      - name: pods-mount-dir
+        hostPath:
+          path: {{ template "hwameistor.kubeletRootDir" . }}/pods
+          type: DirectoryOrCreate
+      {{- if .Values.localDiskManager.tolerationsOnMaster }}
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoSchedule
+          key: node.kubernetes.io/not-ready
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
+        - effect: NoSchedule
+          key: node.cloudprovider.kubernetes.io/uninitialized
+          operator: Exists
+      {{- end }}

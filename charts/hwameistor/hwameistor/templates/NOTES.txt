@@ -1,0 +1,20 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Hwameistor is deployed at {{ .Release.Namespace }}, release name is {{ .Release.Name }}.
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }} -n {{ .Release.Namespace }}
+  $ helm get manifest {{ .Release.Name }} -n {{ .Release.Namespace }}
+
+You can use hwameistor to provide LVM volume:
+
+  1. Check each storageNode's storage capacity 
+  
+     $ kubectl get lsn -o jsonpath='{.items[*].status.pools.LocalStorage_PoolHDD.freeCapacityBytes}'
+  
+  2. Create a PVC and specify 'hwameistor-storage-lvm-{{ .Values.storageClass.diskType | lower}}' in pvc.spec.storageClassName
+  
+  3. Create your application and use the above pvc
+
+Read more about how to use hwameistor here: https://hwameistor.io/

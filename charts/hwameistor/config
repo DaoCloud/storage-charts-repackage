@@ -1,0 +1,10 @@
+export USE_OPENSOURCE_CHART=false
+
+# must
+export REPO_URL=http://hwameistor.io/hwameistor
+export REPO_NAME=hwameistor
+export CHART_NAME=hwameistor
+export VERSION=v0.6.1
+
+# push to daocloud repo
+export DAOCLOUD_REPO_PROJECT=addon

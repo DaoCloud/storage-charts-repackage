@@ -1,0 +1,197 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: hwameistor-local-storage 
+  namespace: {{ .Release.Namespace}}
+spec:
+  selector:
+    matchLabels:
+      app: hwameistor-local-storage 
+  template:
+    metadata:
+      labels:
+        app: hwameistor-local-storage 
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: lvm.hwameistor.io/enable
+                operator: NotIn
+                values:
+                  - "false"
+
+      containers:
+      - args:
+        - --v=5
+        - --csi-address=/csi/csi.sock
+        - --kubelet-registration-path={{ template "hwameistor.kubeletRootDir" . }}/plugins/lvm.hwameistor.io/csi.sock
+        env:
+        - name: KUBE_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        image: {{ .Values.global.k8sImageRegistry }}/{{ .Values.localStorage.registrar.imageRepository }}:{{ .Values.localStorage.registrar.tag }}
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - rm -rf /registration/lvm.hwameistor.io /registration/lvm.hwameistor.io-reg.sock
+        name: registrar
+        resources: 
+          {{- toYaml .Values.localStorage.registrar.resources | nindent 12 }}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /csi
+          name: socket-dir
+        - mountPath: /registration
+          name: registration-dir
+      - args:
+        - --nodename=$(MY_NODENAME)
+        - --namespace=$(POD_NAMESPACE)
+        - --csi-address=$(CSI_ENDPOINT)
+        - --http-port=80
+        - --debug=true
+        {{- if .Values.localStorage.member.config.drbdStartPort }}
+        - --drbd-start-port={{ .Values.localStorage.member.config.drbdStartPort }}
+        {{- end }}
+        {{- if .Values.localStorage.member.config.maxHAVolumeCount }}
+        - --max-ha-volume-count={{ .Values.localStorage.member.config.maxHAVolumeCount }}
+        {{- end }}
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: MY_NODENAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: CSI_ENDPOINT
+          value: unix:/{{ template "hwameistor.kubeletRootDir" . }}/plugins/lvm.hwameistor.io/csi.sock
+        - name: NODE_ANNOTATION_KEY_STORAGE_IPV4
+          value: localstorage.hwameistor.io/storage-ipv4
+        - name: MIGRAGE_RCLONE_IMAGE
+          value: {{ .Values.localStorage.migrate.rclone.imageRepository }}:{{ .Values.localStorage.migrate.rclone.tag }}
+        image: {{ .Values.global.hwameistorImageRegistry}}/{{ .Values.localStorage.member.imageRepository}}:{{ template "hwameistor.localstorageImageTag" . }}
+        imagePullPolicy: IfNotPresent
+        name: member
+        ports:
+        - containerPort: 80
+          name: healthz
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /healthz
+            port: healthz
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 3
+        resources: 
+          {{- toYaml .Values.localStorage.member.resources | nindent 12 }}
+        securityContext:
+          #  allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: {{ template "hwameistor.kubeletRootDir" . }}/plugins
+          mountPropagation: Bidirectional
+          name: plugin-dir
+        - mountPath: {{ template "hwameistor.kubeletRootDir" . }}/plugins_registry
+          name: registration-dir
+        - mountPath: {{ template "hwameistor.kubeletRootDir" . }}/pods
+          mountPropagation: Bidirectional
+          name: pods-mount-dir
+        - mountPath: /dev
+          name: host-dev
+        - mountPath: /etc/drbd.d
+          mountPropagation: Bidirectional
+          name: host-etc-drbd
+        - mountPath: /root/.ssh
+          mountPropagation: Bidirectional
+          name: ssh-dir
+        - mountPath: /mnt
+          name: host-mnt
+          mountPropagation: "Bidirectional"
+      dnsPolicy: ClusterFirstWithHostNet
+      hostPID: true
+      priorityClassName: {{ .Values.localStorage.priorityClassName }}
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      serviceAccountName: hwameistor-admin 
+      serviceAccount: hwameistor-admin
+      terminationGracePeriodSeconds: 30
+      {{- if .Values.localStorage.tolerationsOnMaster }}
+      tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+      - effect: NoSchedule
+        key: node.kubernetes.io/not-ready
+        operator: Exists
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+        operator: Exists
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+        operator: Exists
+      - effect: NoSchedule
+        key: node.cloudprovider.kubernetes.io/uninitialized
+        operator: Exists
+      {{- end }}
+      volumes:
+      - hostPath:
+          path: {{ template "hwameistor.kubeletRootDir" . }}/plugins/lvm.hwameistor.io
+          type: DirectoryOrCreate
+        name: socket-dir
+      - hostPath:
+          path: {{ template "hwameistor.kubeletRootDir" . }}/plugins
+          type: DirectoryOrCreate
+        name: plugin-dir
+      - hostPath:
+          path: {{ template "hwameistor.kubeletRootDir" . }}/plugins_registry/
+          type: Directory
+        name: registration-dir
+      - hostPath:
+          path: /dev
+          type: ""
+        name: host-dev
+      - hostPath:
+          path: /etc/drbd.d
+          type: DirectoryOrCreate
+        name: host-etc-drbd
+      - hostPath:
+          path: {{ template "hwameistor.kubeletRootDir" . }}/pods
+          type: DirectoryOrCreate
+        name: pods-mount-dir
+      - hostPath:
+          path: /root/.ssh
+          type: DirectoryOrCreate
+        name: ssh-dir
+      - hostPath:
+          path: /mnt
+          type: DirectoryOrCreate
+        name: host-mnt
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
