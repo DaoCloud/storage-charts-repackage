@@ -1,4 +1,4 @@
-- "{{ .global.k8sImageRegistry}}/{{ .scheduler.imageRepository}}:{{ .scheduler.tag}}"
+- "{{ .global.hwameistorImageRegistry}}/{{ .scheduler.imageRepository}}:{{ .scheduler.tag}}"
 - "{{ .global.k8sImageRegistry }}/{{ .admission.imageRepository }}:{{ .admission.tag }}"
 - "{{ .global.k8sImageRegistry }}/{{ .evictor.imageRepository }}:{{ .evictor.tag }}"
 - "{{ .global.k8sImageRegistry }}/{{ .localDiskManager.registrar.imageRepository }}:{{ .localDiskManager.registrar.tag }}"
