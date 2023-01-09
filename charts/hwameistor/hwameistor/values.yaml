@@ -16,7 +16,7 @@ global:
 # StorageClass Settings
 storageClass:
   # If enabled, a hwameistor storageclass will be created in your system
-  enabled: true
+-  enabled: true
   # If enabled, hwameistor storageclass will be a default storageclass in system
   # Attention: ensure your system doesn't have any default storageclass before
   # more info: https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
