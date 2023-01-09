@@ -38,13 +38,13 @@ scheduler:
   replicas: 1
   kubeApiServerConfigFilePath: /etc/kubernetes/admin.conf
   imageRepository: hwameistor/scheduler
-  tag: v0.7.0
+  tag: v0.7.1
   resources: {}
 
 admission:
   replicas: 1
   imageRepository: hwameistor/admission
-  tag: v0.7.0
+  tag: v0.7.1
   resources: {}
   # failurePolicy defines how unrecognized errors from the admission endpoint
   # are handled - allowed values are Ignore or Fail. Defaults to Fail.
@@ -57,7 +57,7 @@ admission:
 evictor:
   replicas: 1
   imageRepository: hwameistor/evictor
-  tag: v0.7.0
+  tag: v0.7.1
   resources: {} 
 
 localDiskManager:
@@ -69,7 +69,7 @@ localDiskManager:
     resources: {}
   manager:
     imageRepository: hwameistor/local-disk-manager
-    tag: v0.7.0
+    tag: v0.7.1
     resources: {}
 
 localDiskManagerCSIController:
@@ -101,7 +101,7 @@ localStorage:
       # default value: 1000
       maxHAVolumeCount:
     imageRepository: hwameistor/local-storage
-    tag: v0.7.0
+    tag: v0.7.1
     resources: {}
   migrate:
     rclone:
