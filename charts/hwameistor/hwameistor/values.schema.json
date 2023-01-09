@@ -42,11 +42,6 @@
             "title": "Config Settings",
             "type": "object",
             "default": {},
-            "required": [
-                "EnableDRBD",
-                "DRBDStartPort",
-                "MaxHAVolumeCount"
-            ],
             "properties": {
                 "EnableDRBD": {
                     "title": "EnableDRBD",
