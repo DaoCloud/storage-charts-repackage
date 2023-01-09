@@ -16,20 +16,20 @@ global:
 # StorageClass Settings
 storageClass:
   # If enabled, a hwameistor storageclass will be created in your system
-  enabled: true
-  # If enabled, hwameistor storageclass will be a default storageclass in system
-  # Attention: ensure your system doesn't have any default storageclass before
-  # more info: https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
-  default: false
-  # If allowed, volume can be expanded by modify pvc related field
-  allowVolumeExpansion: true
-  convertible: false
-  reclaimPolicy: Delete
-  # If enabled, you need install drbd kernel module on each node first
-  enableHA: false
-  # Represent which kind disk will be used to provision volume
-  diskType: HDD
-  fsType: xfs
+  -  enabled: true
+    # If enabled, hwameistor storageclass will be a default storageclass in system
+    # Attention: ensure your system doesn't have any default storageclass before
+    # more info: https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
+     default: false
+    # If allowed, volume can be expanded by modify pvc related field
+     allowVolumeExpansion: true
+     convertible: false
+     reclaimPolicy: Delete
+    # If enabled, you need install drbd kernel module on each node first
+     enableHA: false
+    # Represent which kind disk will be used to provision volume
+     diskType: HDD
+     fsType: xfs
 
 # storageNodes means the nodes will be used for creating local volumes
 storageNodes: []
@@ -58,7 +58,7 @@ evictor:
   replicas: 1
   imageRepository: hwameistor/evictor
   tag: v0.7.1
-  resources: {} 
+  resources: {}
 
 localDiskManager:
   tolerationsOnMaster: true
@@ -74,7 +74,7 @@ localDiskManager:
 
 localDiskManagerCSIController:
   replicas: 1
-  priorityClassName: 
+  priorityClassName:
   provisioner:
     imageRepository: sig-storage/csi-provisioner
     tag: v2.0.3
@@ -83,10 +83,10 @@ localDiskManagerCSIController:
     imageRepository: sig-storage/csi-attacher
     tag: v3.0.1
     resources: {}
-    
+
 localStorage:
   tolerationsOnMaster: true
-  priorityClassName: 
+  priorityClassName:
   registrar:
     imageRepository: sig-storage/csi-node-driver-registrar
     tag: v2.5.0
