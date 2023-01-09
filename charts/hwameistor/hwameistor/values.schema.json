@@ -56,11 +56,13 @@
                 "DRBDStartPort": {
                     "title": "DRBDStartPort",
                     "type": "integer",
+                    "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}",
                     "default": 43001
                 },
                 "MaxHAVolumeCount": {
                     "title": "MaxHAVolumeCount",
                     "type": "integer",
+                    "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}",
                     "default": 1000
                 }
             }
