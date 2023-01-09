@@ -65,7 +65,7 @@
                 }
             }
         },
-        "storage class": {
+        "storageClass": {
             "title": "Storage Class Settings",
             "type": "array",
             "items": {
