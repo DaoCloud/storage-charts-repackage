@@ -101,19 +101,18 @@
                     "enableHA": {
                         "title": "EnableHA",
                         "type": "boolean",
-                        "default": true,
                         "description": "If enabled, you need install drbd kernel module on each node first",
                         "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}"
                     },
-                    "Replicas": {
-                        "title": "Replicas 1",
+                    "Replicas 1": {
+                        "title": "Replicas",
                         "type": "integer",
                         "default": 1,
                         "description": "Replicas can be converted from 1 to 2 when HA is enabled",
                         "ui:hidden": "{{rootFormData.config.EnableDRBD === true}}"
                     },
-                    "Replicas": {
-                        "title": "Replicas 2",
+                    "Replicas 2": {
+                        "title": "Replicas",
                         "type": "integer",
                         "default": 2,
                         "description": "Replicas can be converted from 1 to 2 when HA is enabled",
