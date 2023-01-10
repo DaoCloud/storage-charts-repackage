@@ -1,0 +1,110 @@
+apiVersion: v1
+entries:
+  hwameistor:
+  - apiVersion: v2
+    appVersion: v0.7.1
+    created: "2023-01-10T08:18:27.338712797Z"
+    description: the HwameiStor local storage
+    digest: 7d983ab3a378ecddfd31dba3a296f9209ca09f661548718fef0bb894f8619759
+    keywords:
+    - storage
+    - local
+    - block
+    name: hwameistor
+    type: application
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/hwameistor-v0.7.1.tgz
+    version: v0.7.1
+  longhorn:
+  - apiVersion: v1
+    appVersion: v1.3.2
+    created: "2023-01-10T08:18:27.340678058Z"
+    description: Longhorn is a distributed block storage system for Kubernetes.
+    digest: 520e2b554bad1d6b488aee12fbc0e9554e55fe3081e7e7a8fde0f8ef54fcf49b
+    home: https://github.com/longhorn/longhorn
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/longhorn/icon/color/longhorn-icon-color.png
+    keywords:
+    - longhorn
+    - storage
+    - distributed
+    - block
+    - device
+    - iscsi
+    - nfs
+    kubeVersion: '>=1.18.0-0 <1.25.0-0'
+    maintainers:
+    - email: maintainers@longhorn.io
+      name: Longhorn maintainers
+    name: longhorn
+    sources:
+    - https://github.com/longhorn/longhorn
+    - https://github.com/longhorn/longhorn-engine
+    - https://github.com/longhorn/longhorn-instance-manager
+    - https://github.com/longhorn/longhorn-share-manager
+    - https://github.com/longhorn/longhorn-manager
+    - https://github.com/longhorn/longhorn-ui
+    - https://github.com/longhorn/longhorn-tests
+    - https://github.com/longhorn/backing-image-manager
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/longhorn-1.3.2.tgz
+    version: 1.3.2
+  nfs-subdir-external-provisioner:
+  - apiVersion: v1
+    appVersion: 4.0.2
+    created: "2023-01-10T08:18:27.341894433Z"
+    description: nfs-subdir-external-provisioner is an automatic provisioner that
+      used your *already configured* NFS server, automatically creating Persistent
+      Volumes.
+    digest: af66f6c2b3206e29c83f3eb4856aa6acaa8ba64562d57f7c1a39b7f158465547
+    keywords:
+    - nfs
+    - storage
+    - provisioner
+    kubeVersion: '>=1.9.0-0'
+    name: nfs-subdir-external-provisioner
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/nfs-subdir-external-provisioner-4.0.17.tgz
+    version: 4.0.17
+  rook-ceph:
+  - apiVersion: v2
+    appVersion: v1.10.5
+    created: "2023-01-10T08:18:27.352839612Z"
+    dependencies:
+    - name: library
+      repository: file://../library
+      version: 0.0.1
+    description: File, Block, and Object Storage Services for your Cloud-Native Environment
+    digest: 7692188f1dd646229ec5c6529891719d99ddea731053a2cdd643c6d32b3d91f3
+    icon: https://rook.io/images/rook-logo.svg
+    keywords:
+    - rook
+    - ceph
+    - storage
+    name: rook-ceph
+    sources:
+    - https://github.com/rook/rook
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/rook-ceph-v1.10.5.tgz
+    version: v1.10.5
+  rook-ceph-cluster:
+  - apiVersion: v2
+    appVersion: v1.10.5
+    created: "2023-01-10T08:18:27.345199766Z"
+    dependencies:
+    - name: library
+      repository: file://../library
+      version: 0.0.1
+    description: Manages a single Ceph cluster namespace for Rook
+    digest: 1eb729540f4cf6029d78b79d250363713765392aede7c28f216fc4471a7c261c
+    icon: https://rook.io/images/rook-logo.svg
+    keywords:
+    - rook
+    - ceph
+    - storage
+    name: rook-ceph-cluster
+    sources:
+    - https://github.com/rook/rook
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/rook-ceph-cluster-v1.10.5.tgz
+    version: v1.10.5
+generated: "2023-01-10T08:18:27.335566361Z"
