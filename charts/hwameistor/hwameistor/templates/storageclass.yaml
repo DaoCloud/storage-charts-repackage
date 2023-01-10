@@ -1,11 +1,3 @@
-{{- define "replicaNumber" -}}
-{{- if .Values.storageClass.enableHA -}}
-{{- print 2 -}}
-{{- else -}}
-{{- print 1 -}}
-{{- end -}}
-{{- end -}}
-
 {{- range $storageclass := .Values.storageClass -}}
 ---
 
@@ -21,7 +13,11 @@ volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: {{ $storageclass.allowVolumeExpansion }}
 reclaimPolicy: {{ $storageclass.reclaimPolicy }}
 parameters:
-  replicaNumber: {{ include "replicaNumber" . | quote}}
+  {{- if eq $storageclass.enableHA "true" }}
+  replicaNumber: "2"
+    {{- else }}
+  replicaNumber: "1"
+  {{- end }}
   poolClass: {{ $storageclass.diskType | quote}}
   poolType: "REGULAR"
   volumeKind: "LVM"
