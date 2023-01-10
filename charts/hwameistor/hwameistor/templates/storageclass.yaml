@@ -13,7 +13,7 @@ volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: {{ $storageclass.allowVolumeExpansion }}
 reclaimPolicy: {{ $storageclass.reclaimPolicy }}
 parameters:
-  {{- if eq $storageclass.enableHA "true" }}
+  {{- if $storageclass.enableHA }}
   replicaNumber: "2"
     {{- else }}
   replicaNumber: "1"
