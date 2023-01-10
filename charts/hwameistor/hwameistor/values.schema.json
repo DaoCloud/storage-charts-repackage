@@ -67,7 +67,7 @@
             "type": "array",
             "items": {
                 "properties": {
-                    "DiskType": {
+                    "diskType": {
                         "title": "DiskType",
                         "type": "string",
                         "anyOf": [
@@ -98,19 +98,27 @@
                         ],
                         "default": "LVM"
                     },
-                    "EnableHA": {
+                    "enableHA": {
                         "title": "EnableHA",
                         "type": "boolean",
                         "description": "If enabled, you need install drbd kernel module on each node first",
                         "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}"
                     },
                     "Replicas": {
-                        "title": "Replicas",
+                        "title": "Replicas 1",
                         "type": "integer",
                         "default": 1,
-                        "description": "Replicas can be converted from 1 to 2 when HA is enabled"
+                        "description": "Replicas can be converted from 1 to 2 when HA is enabled",
+                        "ui:hidden": "{{rootFormData.config.EnableDRBD === true}}"
                     },
-                    "ReclaimPolicy": {
+                    "Replicas": {
+                        "title": "Replicas 2",
+                        "type": "integer",
+                        "default": 2,
+                        "description": "Replicas can be converted from 1 to 2 when HA is enabled",
+                        "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}"
+                    },
+                    "reclaimPolicy": {
                         "title": "ReclaimPolicy",
                         "type": "string",
                         "anyOf": [
