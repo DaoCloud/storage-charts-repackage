@@ -6,23 +6,27 @@
 {{- end -}}
 {{- end -}}
 
-{{- if .Values.storageClass.enabled -}}
+{{- range $storageclass := .Values.storageClass -}}
+---
+
+{{- if $storageclass.enabled -}}
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   annotations:
-    storageclass.kubernetes.io/is-default-class: {{ .Values.storageClass.default | quote }}
-  name: hwameistor-storage-lvm-{{ .Values.storageClass.diskType | lower}}
+    storageclass.kubernetes.io/is-default-class: {{ $storageclass.default | quote }}
+  name: hwameistor-storage-lvm-{{ $storageclass.diskType | lower}}
 provisioner: lvm.hwameistor.io
 volumeBindingMode: WaitForFirstConsumer
-allowVolumeExpansion: {{ .Values.storageClass.allowVolumeExpansion }}
-reclaimPolicy: {{ .Values.storageClass.reclaimPolicy }}
+allowVolumeExpansion: {{ $storageclass.allowVolumeExpansion }}
+reclaimPolicy: {{ $storageclass.reclaimPolicy }}
 parameters:
   replicaNumber: {{ include "replicaNumber" . | quote}}
-  poolClass: {{ .Values.storageClass.diskType | quote}}
+  poolClass: {{ $storageclass.diskType | quote}}
   poolType: "REGULAR"
   volumeKind: "LVM"
   striped: "true"
-  convertible: {{ .Values.storageClass.convertible | quote}}
-  csi.storage.k8s.io/fstype: {{ .Values.storageClass.fsType | quote}}
+  convertible: {{ $storageclass.convertible | quote}}
+  csi.storage.k8s.io/fstype: {{ $storageclass.fsType | quote}}
 {{- end }}
+{{ end }}

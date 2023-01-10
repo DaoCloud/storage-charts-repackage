@@ -16,20 +16,20 @@ global:
 # StorageClass Settings
 storageClass:
   # If enabled, a hwameistor storageclass will be created in your system
-  enabled: true
-  # If enabled, hwameistor storageclass will be a default storageclass in system
-  # Attention: ensure your system doesn't have any default storageclass before
-  # more info: https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
-  default: false
-  # If allowed, volume can be expanded by modify pvc related field
-  allowVolumeExpansion: true
-  convertible: false
-  reclaimPolicy: Delete
-  # If enabled, you need install drbd kernel module on each node first
-  enableHA: false
-  # Represent which kind disk will be used to provision volume
-  diskType: HDD
-  fsType: xfs
+  -  enabled: true
+    # If enabled, hwameistor storageclass will be a default storageclass in system
+    # Attention: ensure your system doesn't have any default storageclass before
+    # more info: https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
+     default: false
+    # If allowed, volume can be expanded by modify pvc related field
+     allowVolumeExpansion: true
+     convertible: false
+     reclaimPolicy: Delete
+    # If enabled, you need install drbd kernel module on each node first
+     enableHA: false
+    # Represent which kind disk will be used to provision volume
+     diskType: HDD
+     fsType: xfs
 
 # storageNodes means the nodes will be used for creating local volumes
 storageNodes: []
