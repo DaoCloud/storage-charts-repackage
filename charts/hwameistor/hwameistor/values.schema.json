@@ -101,6 +101,7 @@
                     "enableHA": {
                         "title": "EnableHA",
                         "type": "boolean",
+                        "default": true,
                         "description": "If enabled, you need install drbd kernel module on each node first",
                         "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}"
                     },
