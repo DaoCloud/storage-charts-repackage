@@ -1,1 +1,125 @@
-{}
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "global": {
+            "title": "Global Settings",
+            "type": "object",
+            "default": {},
+            "required": [
+                "hwameistorImageRegistry",
+                "k8sImageRegistry",
+                "kubeletRootDir"
+            ],
+            "properties": {
+                "hwameistorImageRegistry": {
+                    "title": "Hwameistor Image Registry",
+                    "type": "string",
+                    "default": "ghcr.io",
+                    "examples": [
+                        "ghcr.io"
+                    ]
+                },
+                "k8sImageRegistry": {
+                    "title": "K8s Image Registry",
+                    "type": "string",
+                    "default": "k8s.gcr.io",
+                    "examples": [
+                        "k8s.gcr.io"
+                    ]
+                },
+                "kubeletRootDir": {
+                    "title": "Kubelet Root Dir",
+                    "type": "string",
+                    "default": "/var/lib/kubelet",
+                    "examples": [
+                        "/var/lib/kubelet"
+                    ]
+                }
+            }
+        },
+        "localStorage": {
+            "title": "Config Settings",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "member": {
+                    "type": "object",
+                    "properties": {
+                        "config": {
+                            "type": "object",
+                            "properties": {
+                                "DRBDStartPort": {
+                                    "title": "DRBDStartPort",
+                                    "type": "integer",
+                                    "default": 43001
+                                },
+                                "MaxHAVolumeCount": {
+                                    "title": "MaxHAVolumeCount",
+                                    "type": "integer",
+                                    "default": 1000
+                                }
+                            }
+                        },
+                        "imageRepository": {
+                            "type": "string"
+                        },
+                        "resources": {
+                            "type": "object"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "storageClass": {
+            "type": "object",
+            "properties": {
+                "allowVolumeExpansion": {
+                    "title": "AllowVolumeExpansion",
+                    "type": "boolean",
+                    "description": "If enabled, volume can support resize feature"
+                },
+                "diskType": {
+                    "title": "DiskType",
+                    "type": "string",
+                    "anyOf": [
+                        {
+                            "title": "HDD",
+                            "const": "HDD"
+                        },
+                        {
+                            "ui:title": "SSD",
+                            "const": "SSD"
+                        }
+                    ],
+                    "default": "HDD",
+                    "description": "Represent which kind disk will be used to provision volume"
+                },
+                "enableHA": {
+                    "title": "EnableHA",
+                    "type": "boolean",
+                    "description": "If enabled, you need install drbd kernel module on each node first",
+                    "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}"
+                },
+                "reclaimPolicy": {
+                    "title": "ReclaimPolicy",
+                    "type": "string",
+                    "anyOf": [
+                        {
+                            "ui:title": "Retain",
+                            "const": "Retain"
+                        },
+                        {
+                            "ui:title": "Delete",
+                            "const": "Delete"
+                        }
+                    ],
+                    "default": "Retain"
+                }
+            }
+        }
+    }
+}

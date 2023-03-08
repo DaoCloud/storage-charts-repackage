@@ -3,8 +3,8 @@ global:
   # k8sImageRegistry is used to control which image registry the CSIController
   # images, i.e. provisioner,attacher,registrar,resizer is pulled from
   # Users in China can change to these sites for option
-  # k8sImageRegistry: k8s-gcr.m.daocloud.io
-  k8sImageRegistry: k8s.gcr.io
+  # k8sImageRegistry: m.daocloud.io/registry.k8s.io
+  k8sImageRegistry: registry.k8s.io
   # hwameistorImageRegistry is used to control which image registry the hwameistor
   # images, i.e. localDiskManager,localstorage,scheduler,admission,evictor is pulled from
   # Users in China can change to these sites for option
@@ -16,20 +16,20 @@ global:
 # StorageClass Settings
 storageClass:
   # If enabled, a hwameistor storageclass will be created in your system
-  -  enabled: true
-    # If enabled, hwameistor storageclass will be a default storageclass in system
-    # Attention: ensure your system doesn't have any default storageclass before
-    # more info: https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
-     default: false
-    # If allowed, volume can be expanded by modify pvc related field
-     allowVolumeExpansion: true
-     convertible: false
-     reclaimPolicy: Delete
-    # If enabled, you need install drbd kernel module on each node first
-     enableHA: false
-    # Represent which kind disk will be used to provision volume
-     diskType: HDD
-     fsType: xfs
+  enabled: true
+  # If enabled, hwameistor storageclass will be a default storageclass in system
+  # Attention: ensure your system doesn't have any default storageclass before
+  # more info: https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
+  default: false
+  # If allowed, volume can be expanded by modify pvc related field
+  allowVolumeExpansion: true
+  convertible: false
+  reclaimPolicy: Delete
+  # If enabled, you need install drbd kernel module on each node first
+  enableHA: false
+  # Represent which kind disk will be used to provision volume
+  diskType: HDD
+  fsType: xfs
 
 # storageNodes means the nodes will be used for creating local volumes
 storageNodes: []
@@ -38,26 +38,34 @@ scheduler:
   replicas: 1
   kubeApiServerConfigFilePath: /etc/kubernetes/admin.conf
   imageRepository: hwameistor/scheduler
-  tag: v0.7.1
+  tag: v0.8.0
   resources: {}
 
 admission:
   replicas: 1
   imageRepository: hwameistor/admission
-  tag: v0.7.1
+  tag: v0.8.0
   resources: {}
   # failurePolicy defines how unrecognized errors from the admission endpoint
   # are handled - allowed values are Ignore or Fail. Defaults to Fail.
-  failurePolicy: ""
-  # self-signed is a tool image for generating self-signed certs used by api-server
-  selfSigned:
-    imageRepository: hwameistor/self-signed
-    tag: v1
+  failurePolicy: "Ignore"
 
 evictor:
   replicas: 1
   imageRepository: hwameistor/evictor
-  tag: v0.7.1
+  tag: v0.8.0
+  resources: {}
+
+exporter:
+  replicas: 1
+  imageRepository: hwameistor/exporter
+  tag: v0.8.0
+  resources: {}
+
+apiserver:
+  replicas: 1
+  imageRepository: hwameistor/apiserver
+  tag: v0.8.0
   resources: {}
 
 localDiskManager:
@@ -69,12 +77,12 @@ localDiskManager:
     resources: {}
   manager:
     imageRepository: hwameistor/local-disk-manager
-    tag: v0.7.1
+    tag: v0.8.0
     resources: {}
 
 localDiskManagerCSIController:
   replicas: 1
-  priorityClassName:
+  priorityClassName: 
   provisioner:
     imageRepository: sig-storage/csi-provisioner
     tag: v2.0.3
@@ -83,10 +91,10 @@ localDiskManagerCSIController:
     imageRepository: sig-storage/csi-attacher
     tag: v3.0.1
     resources: {}
-
+    
 localStorage:
   tolerationsOnMaster: true
-  priorityClassName:
+  priorityClassName: 
   registrar:
     imageRepository: sig-storage/csi-node-driver-registrar
     tag: v2.5.0
@@ -101,7 +109,7 @@ localStorage:
       # default value: 1000
       maxHAVolumeCount:
     imageRepository: hwameistor/local-storage
-    tag: v0.7.1
+    tag: v0.8.0
     resources: {}
   migrate:
     rclone:
