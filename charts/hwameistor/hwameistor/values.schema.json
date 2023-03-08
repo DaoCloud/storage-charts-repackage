@@ -7,20 +7,20 @@
             "type": "object",
             "default": {},
             "required": [
-                "GlobalImageRegistry",
-                "K8sImageRegistry",
-                "KubeletRootDir"
+                "hwameistorImageRegistry",
+                "k8sImageRegistry",
+                "kubeletRootDir"
             ],
             "properties": {
-                "GlobalImageRegistry": {
-                    "title": "Global Image Registry",
+                "hwameistorImageRegistry": {
+                    "title": "Hwameistor Image Registry",
                     "type": "string",
                     "default": "ghcr.io",
                     "examples": [
                         "ghcr.io"
                     ]
                 },
-                "K8sImageRegistry": {
+                "k8sImageRegistry": {
                     "title": "K8s Image Registry",
                     "type": "string",
                     "default": "k8s.gcr.io",
@@ -28,7 +28,7 @@
                         "k8s.gcr.io"
                     ]
                 },
-                "KubeletRootDir": {
+                "kubeletRootDir": {
                     "title": "Kubelet Root Dir",
                     "type": "string",
                     "default": "/var/lib/kubelet",
@@ -38,129 +38,86 @@
                 }
             }
         },
-        "config": {
+        "localStorage": {
             "title": "Config Settings",
             "type": "object",
             "default": {},
             "properties": {
-                "EnableDRBD": {
-                    "title": "EnableDRBD",
-                    "type": "boolean",
-                    "description": "drbd module will be installed, StorageClass can be enabled HA mode when DRBD enabled"
-                },
-                "DRBDStartPort": {
-                    "title": "DRBDStartPort",
-                    "type": "integer",
-                    "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}",
-                    "default": 43001
-                },
-                "MaxHAVolumeCount": {
-                    "title": "MaxHAVolumeCount",
-                    "type": "integer",
-                    "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}",
-                    "default": 1000
+                "member": {
+                    "type": "object",
+                    "properties": {
+                        "config": {
+                            "type": "object",
+                            "properties": {
+                                "DRBDStartPort": {
+                                    "title": "DRBDStartPort",
+                                    "type": "integer",
+                                    "default": 43001
+                                },
+                                "MaxHAVolumeCount": {
+                                    "title": "MaxHAVolumeCount",
+                                    "type": "integer",
+                                    "default": 1000
+                                }
+                            }
+                        },
+                        "imageRepository": {
+                            "type": "string"
+                        },
+                        "resources": {
+                            "type": "object"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
         "storageClass": {
-            "title": "Storage Class Settings",
-            "type": "array",
-            "items": {
-                "properties": {
-                    "diskType": {
-                        "title": "DiskType",
-                        "type": "string",
-                        "anyOf": [
-                            {
-                                "title": "HDD",
-                                "const": "HDD"
-                            },
-                            {
-                                "ui:title": "SSD",
-                                "const": "SSD"
-                            }
-                        ],
-                        "default": "HDD",
-                        "description": "Represent which kind disk will be used to provision volume"
-                    },
-                    "ProvisionerType": {
-                        "title": "ProvisionerType",
-                        "type": "string",
-                        "anyOf": [
-                            {
-                                "title": "LVM",
-                                "const": "LVM"
-                            },
-                            {
-                                "ui:title": "Raw Disk",
-                                "const": "Raw Disk"
-                            }
-                        ],
-                        "default": "LVM"
-                    },
-                    "enableHA": {
-                        "title": "EnableHA",
-                        "type": "boolean",
-                        "description": "If enabled, you need install drbd kernel module on each node first",
-                        "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}"
-                    },
-                    "Replicas 1": {
-                        "title": "Replicas",
-                        "type": "integer",
-                        "default": 1,
-                        "description": "Replicas can be converted from 1 to 2 when HA is enabled",
-                        "ui:hidden": "{{rootFormData.config.EnableDRBD === true}}"
-                    },
-                    "Replicas 2": {
-                        "title": "Replicas",
-                        "type": "integer",
-                        "default": 2,
-                        "description": "Replicas can be converted from 1 to 2 when HA is enabled",
-                        "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}"
-                    },
-                    "reclaimPolicy": {
-                        "title": "ReclaimPolicy",
-                        "type": "string",
-                        "anyOf": [
-                            {
-                                "ui:title": "Retain",
-                                "const": "Retain"
-                            },
-                            {
-                                "ui:title": "Delete",
-                                "const": "Delete"
-                            }
-                        ],
-                        "default": "Retain"
-                    },
-                    "Snapshot": {
-                        "title": "Snapshot",
-                        "type": "boolean",
-                        "default": true,
-                        "description": "If enabled, volume can support snapshot feature"
-                    },
-                    "Resize": {
-                        "title": "Resize",
-                        "type": "boolean",
-                        "default": false,
-                        "description": "If enabled, volume can support resize feature"
-                    },
-                    "VolumeBindingMode": {
-                        "title": "VolumeBindingMode",
-                        "type": "string",
-                        "anyOf": [
-                            {
-                                "title": "WaitForFirstConsumer",
-                                "const": "WaitForFirstConsumer"
-                            },
-                            {
-                                "ui:title": "Immediate",
-                                "const": "Immediate"
-                            }
-                        ],
-                        "default": "WaitForFirstConsumer",
-                        "description": "PVC will wait to be created until it is mounted to pod"
-                    }
+            "type": "object",
+            "properties": {
+                "allowVolumeExpansion": {
+                    "title": "AllowVolumeExpansion",
+                    "type": "boolean",
+                    "description": "If enabled, volume can support resize feature"
+                },
+                "diskType": {
+                    "title": "DiskType",
+                    "type": "string",
+                    "anyOf": [
+                        {
+                            "title": "HDD",
+                            "const": "HDD"
+                        },
+                        {
+                            "ui:title": "SSD",
+                            "const": "SSD"
+                        }
+                    ],
+                    "default": "HDD",
+                    "description": "Represent which kind disk will be used to provision volume"
+                },
+                "enableHA": {
+                    "title": "EnableHA",
+                    "type": "boolean",
+                    "description": "If enabled, you need install drbd kernel module on each node first",
+                    "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}"
+                },
+                "reclaimPolicy": {
+                    "title": "ReclaimPolicy",
+                    "type": "string",
+                    "anyOf": [
+                        {
+                            "ui:title": "Retain",
+                            "const": "Retain"
+                        },
+                        {
+                            "ui:title": "Delete",
+                            "const": "Delete"
+                        }
+                    ],
+                    "default": "Retain"
                 }
             }
         }
