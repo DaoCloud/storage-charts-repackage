@@ -23,9 +23,9 @@
                 "k8sImageRegistry": {
                     "title": "K8s Image Registry",
                     "type": "string",
-                    "default": "k8s.gcr.io",
+                    "default": "registry.k8s.io",
                     "examples": [
-                        "k8s.gcr.io"
+                        "registry.k8s.io"
                     ]
                 },
                 "kubeletRootDir": {
