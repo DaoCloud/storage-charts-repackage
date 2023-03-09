@@ -60,15 +60,6 @@
                                     "default": 1000
                                 }
                             }
-                        },
-                        "imageRepository": {
-                            "type": "string"
-                        },
-                        "resources": {
-                            "type": "object"
-                        },
-                        "tag": {
-                            "type": "string"
                         }
                     }
                 }
