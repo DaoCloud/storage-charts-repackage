@@ -49,12 +49,12 @@
                         "config": {
                             "type": "object",
                             "properties": {
-                                "DRBDStartPort": {
+                                "drbdStartPort": {
                                     "title": "DRBDStartPort",
                                     "type": "integer",
                                     "default": 43001
                                 },
-                                "MaxHAVolumeCount": {
+                                "maxHAVolumeCount": {
                                     "title": "MaxHAVolumeCount",
                                     "type": "integer",
                                     "default": 1000
@@ -102,7 +102,6 @@
                     "title": "EnableHA",
                     "type": "boolean",
                     "description": "If enabled, you need install drbd kernel module on each node first",
-                    "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}"
                 },
                 "reclaimPolicy": {
                     "title": "ReclaimPolicy",
