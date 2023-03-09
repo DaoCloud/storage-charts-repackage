@@ -101,7 +101,7 @@
                 "enableHA": {
                     "title": "EnableHA",
                     "type": "boolean",
-                    "description": "If enabled, you need install drbd kernel module on each node first",
+                    "description": "If enabled, you need install drbd kernel module on each node first"
                 },
                 "reclaimPolicy": {
                     "title": "ReclaimPolicy",
