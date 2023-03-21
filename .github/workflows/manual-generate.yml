@@ -15,7 +15,7 @@ on:
       ref:
         description: 'branch name, tag or sha'
         required: true
-        default: main
+        default: master
 
 permissions: write-all
 

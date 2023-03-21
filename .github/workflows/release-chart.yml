@@ -19,7 +19,7 @@ on:
       ref:
         description: 'branch name, tag or sha'
         required: true
-        default: main
+        default: master
       daocloud:
         description: 'enable push to daocloud repo'
         required: true
