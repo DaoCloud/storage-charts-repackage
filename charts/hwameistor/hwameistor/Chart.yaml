@@ -4,6 +4,7 @@ description: the HwameiStor local storage
 name: hwameistor
 type: application
 version: v0.8.0
+icon: https://hwameistor.io/img/logo.svg
 keywords:
   - storage
   - local
