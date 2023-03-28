@@ -1,10 +1,10 @@
 apiVersion: v2
-appVersion: v0.8.0
+appVersion: v0.9.0
 description: the HwameiStor local storage
+icon: https://hwameistor.io/img/logo.svg
 name: hwameistor
 type: application
-version: v0.8.0
-icon: https://hwameistor.io/img/logo.svg
+version: v0.9.0
 keywords:
   - storage
   - local
