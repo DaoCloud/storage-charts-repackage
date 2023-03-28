@@ -23,9 +23,9 @@
                 "k8sImageRegistry": {
                     "title": "K8s Image Registry",
                     "type": "string",
-                    "default": "registry.k8s.io",
+                    "default": "k8s.gcr.io",
                     "examples": [
-                        "registry.k8s.io"
+                        "k8s.gcr.io"
                     ]
                 },
                 "kubeletRootDir": {
@@ -49,17 +49,26 @@
                         "config": {
                             "type": "object",
                             "properties": {
-                                "drbdStartPort": {
+                                "DRBDStartPort": {
                                     "title": "DRBDStartPort",
                                     "type": "integer",
                                     "default": 43001
                                 },
-                                "maxHAVolumeCount": {
+                                "MaxHAVolumeCount": {
                                     "title": "MaxHAVolumeCount",
                                     "type": "integer",
                                     "default": 1000
                                 }
                             }
+                        },
+                        "imageRepository": {
+                            "type": "string"
+                        },
+                        "resources": {
+                            "type": "object"
+                        },
+                        "tag": {
+                            "type": "string"
                         }
                     }
                 }
@@ -92,7 +101,8 @@
                 "enableHA": {
                     "title": "EnableHA",
                     "type": "boolean",
-                    "description": "If enabled, you need install drbd kernel module on each node first"
+                    "description": "If enabled, you need install drbd kernel module on each node first",
+                    "ui:hidden": "{{rootFormData.config.EnableDRBD === false}}"
                 },
                 "reclaimPolicy": {
                     "title": "ReclaimPolicy",
