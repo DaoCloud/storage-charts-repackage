@@ -97,7 +97,7 @@ localDiskManagerCSIController:
     imageRepository: sig-storage/csi-attacher
     tag: v3.0.1
     resources: {}
-    
+
 localStorage:
   tolerationsOnMaster: true
   priorityClassName: 
