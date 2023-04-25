@@ -9,13 +9,15 @@
             "type": "object"
         },
         "cephCommandsTimeoutSeconds": {
-            "type": "string"
+            "type": "string",
+            "default": "15"
         },
         "crds": {
             "type": "object",
             "properties": {
                 "enabled": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 }
             }
         },
@@ -23,155 +25,196 @@
             "type": "object",
             "properties": {
                 "allowUnsupportedVersion": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "cephFSFSGroupPolicy": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "File"
                 },
                 "csiAddons": {
                     "type": "object",
                     "properties": {
                         "enabled": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": false
                         }
                     }
                 },
                 "csiCephFSPluginResource": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "- name : driver-registrar\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n- name : csi-cephfsplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n- name : liveness-prometheus\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n"
                 },
                 "csiCephFSProvisionerResource": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "- name : csi-provisioner\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-resizer\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-attacher\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-snapshotter\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-cephfsplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n- name : liveness-prometheus\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n"
                 },
                 "csiNFSPluginResource": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "- name : driver-registrar\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n- name : csi-nfsplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n"
                 },
                 "csiNFSProvisionerResource": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "- name : csi-provisioner\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-nfsplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n"
                 },
                 "csiRBDPluginResource": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "- name : driver-registrar\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n- name : csi-rbdplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n- name : liveness-prometheus\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n"
                 },
                 "csiRBDProvisionerResource": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "- name : csi-provisioner\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-resizer\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-attacher\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-snapshotter\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-rbdplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n- name : csi-omap-generator\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n- name : liveness-prometheus\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n"
                 },
                 "enableCSIEncryption": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "enableCSIHostNetwork": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 },
                 "enableCephfsDriver": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 },
                 "enableCephfsSnapshotter": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 },
                 "enableGrpcMetrics": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "enableLiveness": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "enableMetadata": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "enableNFSSnapshotter": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 },
                 "enableOMAPGenerator": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "enablePluginSelinuxHostMount": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "enableRBDSnapshotter": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 },
                 "enableRbdDriver": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 },
                 "forceCephFSKernelClient": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true
                 },
                 "grpcTimeoutInSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "default": 150
                 },
                 "nfs": {
                     "type": "object",
                     "properties": {
                         "enabled": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": false
                         }
                     }
                 },
                 "nfsFSGroupPolicy": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "File"
                 },
                 "pluginPriorityClassName": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "system-node-critical"
                 },
                 "provisionerPriorityClassName": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "system-cluster-critical"
                 },
                 "provisionerReplicas": {
-                    "type": "integer"
+                    "type": "integer",
+                    "default": 2
                 },
                 "rbdFSGroupPolicy": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "File"
                 },
                 "topology": {
                     "type": "object",
                     "properties": {
                         "enabled": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": false
                         }
                     }
                 }
             }
         },
         "currentNamespaceOnly": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
         },
         "disableAdmissionController": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
         },
         "disableDeviceHotplug": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
         },
         "discoverDaemonUdev": {
             "type": "null"
         },
         "enableDiscoveryDaemon": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
         },
         "enableOBCWatchOperatorNamespace": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
         },
         "hostpathRequiresPrivileged": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
         },
         "image": {
             "type": "object",
             "properties": {
                 "pullPolicy": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "IfNotPresent"
                 },
                 "repository": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "rook/ceph"
                 },
                 "tag": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "v1.10.5"
                 }
             }
         },
         "logLevel": {
-            "type": "string"
+            "type": "string",
+            "default": "INFO"
         },
         "monitoring": {
             "type": "object",
             "properties": {
                 "enabled": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 }
             }
         },
@@ -179,10 +222,12 @@
             "type": "object"
         },
         "pspEnable": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
         },
         "rbacEnable": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
         },
         "resources": {
             "type": "object",
@@ -191,10 +236,12 @@
                     "type": "object",
                     "properties": {
                         "cpu": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "500m"
                         },
                         "memory": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "512Mi"
                         }
                     }
                 },
@@ -202,10 +249,12 @@
                     "type": "object",
                     "properties": {
                         "cpu": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "100m"
                         },
                         "memory": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "128Mi"
                         }
                     }
                 }
@@ -215,7 +264,8 @@
             "type": "array"
         },
         "unreachableNodeTolerationSeconds": {
-            "type": "integer"
+            "type": "integer",
+            "default": 5
         }
     }
 }

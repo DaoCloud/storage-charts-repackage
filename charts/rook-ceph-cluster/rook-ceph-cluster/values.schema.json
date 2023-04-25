@@ -8,19 +8,22 @@
                 "type": "object",
                 "properties": {
                     "name": {
-                        "type": "string"
+                        "type": "string",
+                        "default": "ceph-blockpool"
                     },
                     "spec": {
                         "type": "object",
                         "properties": {
                             "failureDomain": {
-                                "type": "string"
+                                "type": "string",
+                                "default": "host"
                             },
                             "replicated": {
                                 "type": "object",
                                 "properties": {
                                     "size": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "default": 3
                                     }
                                 }
                             }
@@ -30,54 +33,68 @@
                         "type": "object",
                         "properties": {
                             "allowVolumeExpansion": {
-                                "type": "boolean"
+                                "type": "boolean",
+                                "default": true
                             },
                             "enabled": {
-                                "type": "boolean"
+                                "type": "boolean",
+                                "default": true
                             },
                             "isDefault": {
-                                "type": "boolean"
+                                "type": "boolean",
+                                "default": true
                             },
                             "mountOptions": {
                                 "type": "array"
                             },
                             "name": {
-                                "type": "string"
+                                "type": "string",
+                                "default": "ceph-block"
                             },
                             "parameters": {
                                 "type": "object",
                                 "properties": {
                                     "csi.storage.k8s.io/controller-expand-secret-name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-csi-rbd-provisioner"
                                     },
                                     "csi.storage.k8s.io/controller-expand-secret-namespace": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-ceph"
                                     },
                                     "csi.storage.k8s.io/fstype": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "ext4"
                                     },
                                     "csi.storage.k8s.io/node-stage-secret-name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-csi-rbd-node"
                                     },
                                     "csi.storage.k8s.io/node-stage-secret-namespace": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-ceph"
                                     },
                                     "csi.storage.k8s.io/provisioner-secret-name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-csi-rbd-provisioner"
                                     },
                                     "csi.storage.k8s.io/provisioner-secret-namespace": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-ceph"
                                     },
                                     "imageFeatures": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "layering"
                                     },
                                     "imageFormat": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "2"
                                     }
                                 }
                             },
                             "reclaimPolicy": {
-                                "type": "string"
+                                "type": "string",
+                                "default": "Delete"
                             }
                         }
                     }
@@ -91,19 +108,23 @@
                     "type": "object"
                 },
                 "deletionPolicy": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "Delete"
                 },
                 "enabled": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "isDefault": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "labels": {
                     "type": "object"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "ceph-block"
                 },
                 "parameters": {
                     "type": "object"
@@ -117,10 +138,12 @@
                     "type": "object",
                     "properties": {
                         "allowUnsupported": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": false
                         },
                         "image": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "quay.io/ceph/ceph:v17.2.5"
                         }
                     }
                 },
@@ -128,35 +151,42 @@
                     "type": "object",
                     "properties": {
                         "allowUninstallWithVolumes": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": false
                         },
                         "confirmation": {
-                            "type": "string"
+                            "type": "string",
+                            "default": ""
                         },
                         "sanitizeDisks": {
                             "type": "object",
                             "properties": {
                                 "dataSource": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "default": "zero"
                                 },
                                 "iteration": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "default": 1
                                 },
                                 "method": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "default": "quick"
                                 }
                             }
                         }
                     }
                 },
                 "continueUpgradeAfterChecksEvenIfNotHealthy": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "crashCollector": {
                     "type": "object",
                     "properties": {
                         "disable": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": false
                         }
                     }
                 },
@@ -164,33 +194,41 @@
                     "type": "object",
                     "properties": {
                         "enabled": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": true
                         },
                         "ssl": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": true
                         }
                     }
                 },
                 "dataDirHostPath": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "/var/lib/rook"
                 },
                 "disruptionManagement": {
                     "type": "object",
                     "properties": {
                         "machineDisruptionBudgetNamespace": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "openshift-machine-api"
                         },
                         "manageMachineDisruptionBudgets": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": false
                         },
                         "managePodBudgets": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": true
                         },
                         "osdMaintenanceTimeout": {
-                            "type": "integer"
+                            "type": "integer",
+                            "default": 30
                         },
                         "pgHealthCheckTimeout": {
-                            "type": "integer"
+                            "type": "integer",
+                            "default": 0
                         }
                     }
                 },
@@ -204,10 +242,12 @@
                                     "type": "object",
                                     "properties": {
                                         "disabled": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "default": false
                                         },
                                         "interval": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "45s"
                                         }
                                     }
                                 },
@@ -215,10 +255,12 @@
                                     "type": "object",
                                     "properties": {
                                         "disabled": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "default": false
                                         },
                                         "interval": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "60s"
                                         }
                                     }
                                 },
@@ -226,10 +268,12 @@
                                     "type": "object",
                                     "properties": {
                                         "disabled": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "default": false
                                         },
                                         "interval": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "60s"
                                         }
                                     }
                                 }
@@ -242,7 +286,8 @@
                                     "type": "object",
                                     "properties": {
                                         "disabled": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "default": false
                                         }
                                     }
                                 },
@@ -250,7 +295,8 @@
                                     "type": "object",
                                     "properties": {
                                         "disabled": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "default": false
                                         }
                                     }
                                 },
@@ -258,7 +304,8 @@
                                     "type": "object",
                                     "properties": {
                                         "disabled": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "default": false
                                         }
                                     }
                                 }
@@ -270,13 +317,16 @@
                     "type": "object",
                     "properties": {
                         "enabled": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": true
                         },
                         "maxLogSize": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "500M"
                         },
                         "periodicity": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "daily"
                         }
                     }
                 },
@@ -284,10 +334,12 @@
                     "type": "object",
                     "properties": {
                         "allowMultiplePerNode": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": false
                         },
                         "count": {
-                            "type": "integer"
+                            "type": "integer",
+                            "default": 2
                         },
                         "modules": {
                             "type": "array",
@@ -295,10 +347,12 @@
                                 "type": "object",
                                 "properties": {
                                     "enabled": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "default": true
                                     },
                                     "name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "pg_autoscaler"
                                     }
                                 }
                             }
@@ -309,10 +363,12 @@
                     "type": "object",
                     "properties": {
                         "allowMultiplePerNode": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": false
                         },
                         "count": {
-                            "type": "integer"
+                            "type": "integer",
+                            "default": 3
                         }
                     }
                 },
@@ -320,18 +376,22 @@
                     "type": "object",
                     "properties": {
                         "mgr": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "system-cluster-critical"
                         },
                         "mon": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "system-node-critical"
                         },
                         "osd": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "system-node-critical"
                         }
                     }
                 },
                 "removeOSDsIfOutAndSafeToRemove": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "resources": {
                     "type": "object",
@@ -343,10 +403,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "500m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "1Gi"
                                         }
                                     }
                                 },
@@ -354,10 +416,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "500m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "100Mi"
                                         }
                                     }
                                 }
@@ -370,10 +434,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "500m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "60Mi"
                                         }
                                     }
                                 },
@@ -381,10 +447,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "100m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "60Mi"
                                         }
                                     }
                                 }
@@ -397,10 +465,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "500m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "1Gi"
                                         }
                                     }
                                 },
@@ -408,10 +478,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "100m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "100Mi"
                                         }
                                     }
                                 }
@@ -424,10 +496,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "1000m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "1Gi"
                                         }
                                     }
                                 },
@@ -435,10 +509,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "500m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "500Mi"
                                         }
                                     }
                                 }
@@ -451,10 +527,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "500m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "100Mi"
                                         }
                                     }
                                 },
@@ -462,10 +540,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "100m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "40Mi"
                                         }
                                     }
                                 }
@@ -478,10 +558,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "2000m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "2Gi"
                                         }
                                     }
                                 },
@@ -489,10 +571,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "1000m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "1Gi"
                                         }
                                     }
                                 }
@@ -505,10 +589,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "2000m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "4Gi"
                                         }
                                     }
                                 },
@@ -516,10 +602,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "1000m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "4Gi"
                                         }
                                     }
                                 }
@@ -532,10 +620,12 @@
                                     "type": "object",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "500m"
                                         },
                                         "memory": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "50Mi"
                                         }
                                     }
                                 }
@@ -544,21 +634,25 @@
                     }
                 },
                 "skipUpgradeChecks": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "storage": {
                     "type": "object",
                     "properties": {
                         "useAllDevices": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": true
                         },
                         "useAllNodes": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": true
                         }
                     }
                 },
                 "waitTimeoutForHealthyOSDInMinutes": {
-                    "type": "integer"
+                    "type": "integer",
+                    "default": 10
                 }
             }
         },
@@ -569,19 +663,23 @@
                     "type": "object"
                 },
                 "deletionPolicy": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "Delete"
                 },
                 "enabled": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "isDefault": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "labels": {
                     "type": "object"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "ceph-filesystem"
                 },
                 "parameters": {
                     "type": "object"
@@ -594,7 +692,8 @@
                 "type": "object",
                 "properties": {
                     "name": {
-                        "type": "string"
+                        "type": "string",
+                        "default": "ceph-filesystem"
                     },
                     "spec": {
                         "type": "object",
@@ -605,16 +704,19 @@
                                     "type": "object",
                                     "properties": {
                                         "failureDomain": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "host"
                                         },
                                         "name": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "data0"
                                         },
                                         "replicated": {
                                             "type": "object",
                                             "properties": {
                                                 "size": {
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "default": 3
                                                 }
                                             }
                                         }
@@ -628,7 +730,8 @@
                                         "type": "object",
                                         "properties": {
                                             "size": {
-                                                "type": "integer"
+                                                "type": "integer",
+                                                "default": 3
                                             }
                                         }
                                     }
@@ -638,13 +741,16 @@
                                 "type": "object",
                                 "properties": {
                                     "activeCount": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "default": 1
                                     },
                                     "activeStandby": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "default": true
                                     },
                                     "priorityClassName": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "system-cluster-critical"
                                     },
                                     "resources": {
                                         "type": "object",
@@ -653,10 +759,12 @@
                                                 "type": "object",
                                                 "properties": {
                                                     "cpu": {
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "default": "2000m"
                                                     },
                                                     "memory": {
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "default": "4Gi"
                                                     }
                                                 }
                                             },
@@ -664,10 +772,12 @@
                                                 "type": "object",
                                                 "properties": {
                                                     "cpu": {
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "default": "1000m"
                                                     },
                                                     "memory": {
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "default": "4Gi"
                                                     }
                                                 }
                                             }
@@ -681,51 +791,64 @@
                         "type": "object",
                         "properties": {
                             "allowVolumeExpansion": {
-                                "type": "boolean"
+                                "type": "boolean",
+                                "default": true
                             },
                             "enabled": {
-                                "type": "boolean"
+                                "type": "boolean",
+                                "default": true
                             },
                             "isDefault": {
-                                "type": "boolean"
+                                "type": "boolean",
+                                "default": false
                             },
                             "mountOptions": {
                                 "type": "array"
                             },
                             "name": {
-                                "type": "string"
+                                "type": "string",
+                                "default": "ceph-filesystem"
                             },
                             "parameters": {
                                 "type": "object",
                                 "properties": {
                                     "csi.storage.k8s.io/controller-expand-secret-name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-csi-cephfs-provisioner"
                                     },
                                     "csi.storage.k8s.io/controller-expand-secret-namespace": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-ceph"
                                     },
                                     "csi.storage.k8s.io/fstype": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "ext4"
                                     },
                                     "csi.storage.k8s.io/node-stage-secret-name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-csi-cephfs-node"
                                     },
                                     "csi.storage.k8s.io/node-stage-secret-namespace": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-ceph"
                                     },
                                     "csi.storage.k8s.io/provisioner-secret-name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-csi-cephfs-provisioner"
                                     },
                                     "csi.storage.k8s.io/provisioner-secret-namespace": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "rook-ceph"
                                     }
                                 }
                             },
                             "pool": {
-                                "type": "string"
+                                "type": "string",
+                                "default": "data0"
                             },
                             "reclaimPolicy": {
-                                "type": "string"
+                                "type": "string",
+                                "default": "Delete"
                             }
                         }
                     }
@@ -738,7 +861,8 @@
                 "type": "object",
                 "properties": {
                     "name": {
-                        "type": "string"
+                        "type": "string",
+                        "default": "ceph-objectstore"
                     },
                     "spec": {
                         "type": "object",
@@ -750,15 +874,18 @@
                                         "type": "object",
                                         "properties": {
                                             "codingChunks": {
-                                                "type": "integer"
+                                                "type": "integer",
+                                                "default": 1
                                             },
                                             "dataChunks": {
-                                                "type": "integer"
+                                                "type": "integer",
+                                                "default": 2
                                             }
                                         }
                                     },
                                     "failureDomain": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "host"
                                     }
                                 }
                             },
@@ -766,13 +893,16 @@
                                 "type": "object",
                                 "properties": {
                                     "instances": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "default": 1
                                     },
                                     "port": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "default": 80
                                     },
                                     "priorityClassName": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "system-cluster-critical"
                                     },
                                     "resources": {
                                         "type": "object",
@@ -781,10 +911,12 @@
                                                 "type": "object",
                                                 "properties": {
                                                     "cpu": {
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "default": "2000m"
                                                     },
                                                     "memory": {
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "default": "2Gi"
                                                     }
                                                 }
                                             },
@@ -792,10 +924,12 @@
                                                 "type": "object",
                                                 "properties": {
                                                     "cpu": {
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "default": "1000m"
                                                     },
                                                     "memory": {
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "default": "1Gi"
                                                     }
                                                 }
                                             }
@@ -810,7 +944,8 @@
                                         "type": "object",
                                         "properties": {
                                             "interval": {
-                                                "type": "string"
+                                                "type": "string",
+                                                "default": "60s"
                                             }
                                         }
                                     }
@@ -820,20 +955,23 @@
                                 "type": "object",
                                 "properties": {
                                     "failureDomain": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "host"
                                     },
                                     "replicated": {
                                         "type": "object",
                                         "properties": {
                                             "size": {
-                                                "type": "integer"
+                                                "type": "integer",
+                                                "default": 3
                                             }
                                         }
                                     }
                                 }
                             },
                             "preservePoolsOnDelete": {
-                                "type": "boolean"
+                                "type": "boolean",
+                                "default": true
                             }
                         }
                     },
@@ -841,21 +979,25 @@
                         "type": "object",
                         "properties": {
                             "enabled": {
-                                "type": "boolean"
+                                "type": "boolean",
+                                "default": true
                             },
                             "name": {
-                                "type": "string"
+                                "type": "string",
+                                "default": "ceph-bucket"
                             },
                             "parameters": {
                                 "type": "object",
                                 "properties": {
                                     "region": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "default": "us-east-1"
                                     }
                                 }
                             },
                             "reclaimPolicy": {
-                                "type": "string"
+                                "type": "string",
+                                "default": "Delete"
                             }
                         }
                     }
@@ -874,10 +1016,12 @@
             "type": "object",
             "properties": {
                 "createPrometheusRules": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "enabled": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "prometheusRule": {
                     "type": "object",
@@ -896,10 +1040,12 @@
             }
         },
         "operatorNamespace": {
-            "type": "string"
+            "type": "string",
+            "default": "rook-ceph"
         },
         "pspEnable": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
         },
         "toolbox": {
             "type": "object",
@@ -908,10 +1054,12 @@
                     "type": "object"
                 },
                 "enabled": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "image": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "rook/ceph:v1.10.5"
                 },
                 "resources": {
                     "type": "object",
@@ -920,10 +1068,12 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "default": "500m"
                                 },
                                 "memory": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "default": "1Gi"
                                 }
                             }
                         },
@@ -931,10 +1081,12 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "default": "100m"
                                 },
                                 "memory": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "default": "128Mi"
                                 }
                             }
                         }
