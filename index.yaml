@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  hwameistor-operator:
+  - apiVersion: v2
+    appVersion: v0.9.3
+    created: "2023-05-15T08:29:16.725034477Z"
+    description: A Helm chart for Hwameistor Operator
+    digest: 22dc8ae8f2fd0f3956b3bcdc0ee5cbb39cba34e5b20987a1f525e6cf1395cc38
+    name: hwameistor-operator
+    type: application
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/hwameistor-operator-v0.9.3.tgz
+    version: v0.9.3
+generated: "2023-05-15T08:29:16.722968822Z"
