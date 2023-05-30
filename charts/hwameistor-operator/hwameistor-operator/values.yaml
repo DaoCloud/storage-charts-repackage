@@ -1,9 +1,9 @@
 global:
   targetNamespace: hwameistor
-  #hwameistorImageRegistry: ghcr.io
-  hwameistorImageRegistry: ghcr.m.daocloud.io
-  #k8sImageRegistry: registry.k8s.io
-  k8sImageRegistry: m.daocloud.io/registry.k8s.io
+  hwameistorImageRegistry: ghcr.io
+  #hwameistorImageRegistry: ghcr.m.daocloud.io
+  k8sImageRegistry: registry.k8s.io
+  #k8sImageRegistry: m.daocloud.io/registry.k8s.io
   hwameistorVersion: v0.10.3
 
 operator:
