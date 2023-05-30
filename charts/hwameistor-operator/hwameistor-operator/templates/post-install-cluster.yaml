@@ -71,8 +71,8 @@ spec:
         repository: {{ $.Values.localStorage.member.imageRepository }}
         tag: {{ template "hwameistor.localStorageImageTag" . }}
       rcloneImage:
-        repository: "rclone/rclone"
-        tag: "1.53.2"
+        repository: {{ $.Values.localStorage.migrate.rclone.imageRepository }}
+        tag: {{ $.Values.localStorage.migrate.rclone.imageRepository }}
     tolerationOnMaster: {{ $.Values.localStorage.tolerationOnMaster }}
   scheduler:
     replicas: {{ $.Values.scheduler.replicas }}
@@ -100,14 +100,18 @@ spec:
     server:
       image:
         registry: {{ $.Values.global.hwameistorImageRegistry }}
-        repository: {{ $.Values.apiserver.repository }}
+        repository: {{ $.Values.apiserver.imageRepository }}
         tag: {{ template "hwameistor.apiserverImageTag" . }}
+    authentication:
+      enable: {{ $.Values.apiserver.authentication.enable }}
+      accessId: {{ $.Values.apiserver.authentication.accessId }}
+      secretKey: {{ $.Values.apiserver.authentication.secretKey }}
   exporter:
     replicas: {{ $.Values.exporter.replicas }}
     collector:
       image:
         registry: {{ $.Values.global.hwameistorImageRegistry }}
-        repository: {{ $.Values.exporter.repository }}
+        repository: {{ $.Values.exporter.imageRepository }}
         tag: {{ template "hwameistor.exporterImageTag" . }}
   ui:
     replicas: {{ $.Values.ui.replicas }}
@@ -117,11 +121,16 @@ spec:
         repository: {{ $.Values.ui.imageRepository }}
         tag: {{ template "hwameistor.uiImageTag" . }}
   drbd:
+    {{- if .Values.ha.disable }}
+    disable: true
+    {{- end }}
     deployOnMaster: {{ $.Values.ha.deployOnMaster | quote }}
     imageRegistry: {{ $.Values.global.hwameistorImageRegistry }}
-    imageRepoOwner: "hwameistor"
+    # imageRepoOwner: "hwameistor"
+    imageRepoOwner: {{ $.Values.ha.imageRepoOwner }}
     imagePullPolicy: "IfNotPresent"
-    drbdVersion: "v9.0.32-1"
+    # drbdVersion: "v9.0.32-1"
+    drbdVersion: {{ $.Values.ha.drbdVersion }}
     upgrade: "no"
     checkHostName: "yes"
     useAffinity: "no"
