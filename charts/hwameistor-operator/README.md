@@ -24,7 +24,16 @@ $ make -e PROJECT=hwameistor-operator
 ls charts/hwameistor-operator/hwameistor-operator
 ```
 
-5. 检查本地安装是否正常
+5. 根据产品定制化的要求去修改values
+修改global下内容:
+`hwameistorImageRegistry: ghcr.m.daocloud.io`
+`k8sImageRegistry: m.daocloud.io/registry.k8s.io`
+```shell
+$ vi charts/hwameistor-operator/hwameistor-operator
+...
+```
+
+6. 检查本地安装是否正常
 ```shell
 $ helm install hwameistor-operator charts/hwameistor-operator/hwameistor-operator -n hwameistor
 ```
