@@ -46,5 +46,5 @@ cp charts/hwameistor/parent/* charts/hwameistor/hwameistor
 
 5. 检查本地安装是否正常
 ```shell
-$ helm install hwameistor charts/hwameistor/hwameistor -n hwameistor
+$ helm install hwameistor charts/hwameistor/hwameistor -n hwameistor --create-namespace
 ```

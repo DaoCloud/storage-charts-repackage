@@ -26,16 +26,24 @@ ls charts/hwameistor-operator/hwameistor-operator
 
 5. 根据产品定制化的要求去修改values
 
-修改global下内容:
+修改global的以下内容:
+
 `hwameistorImageRegistry: ghcr.m.daocloud.io`
+
 `k8sImageRegistry: m.daocloud.io/registry.k8s.io`
 
 ```shell
-$ vi charts/hwameistor-operator/hwameistor-operator
+$ vi charts/hwameistor-operator/hwameistor-operator/values.yaml
 ...
 ```
 
 6. 检查本地安装是否正常
 ```shell
-$ helm install hwameistor-operator charts/hwameistor-operator/hwameistor-operator -n hwameistor
+$ helm install hwameistor-operator charts/hwameistor-operator/hwameistor-operator -n hwameistor --create-namespace
 ```
+7. 推送至fork后的自己的仓库
+```shell
+$ git push https://{你的Token}@github.com/{你的用户名}/storage-charts-repackage.git
+```
+
+8. 运行Github Action,推送至Harbor
