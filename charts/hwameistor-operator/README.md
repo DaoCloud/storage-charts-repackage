@@ -1,7 +1,11 @@
-# 如何更新 Hwameistor-Operator Charts
+# 如何更新 [Hwameistor-Operator](https://github.com/hwameistor/hwameistor-operator) Charts
 1. 下载代码
 ```shell
 $ git clone https://github.com/DaoCloud/storage-charts-repackage.git
+```
+或是使用脚本代替2-5的所有操作
+```shell
+$ cd charts/hwameistor-operator && bash upgrade_hwameistor-operator.sh v0.10.2
 ```
 
 2. 删除 `charts/hwameistor-operator/hwameistor-operator` 目录
@@ -26,7 +30,9 @@ ls charts/hwameistor-operator/hwameistor-operator
 
 5. 根据产品定制化的要求去修改values
 
-修改global的以下内容:
+如果修改了定制化的内容记得要修改脚本(upgrade_hwameistor-oprator.sh)
+
+修改global的以下内容,使用Daocloud源:
 
 `hwameistorImageRegistry: ghcr.m.daocloud.io`
 
