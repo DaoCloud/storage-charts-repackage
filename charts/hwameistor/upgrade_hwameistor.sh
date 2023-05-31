@@ -1,5 +1,5 @@
 ## This script is only used for upgrade hwameistor version 
-## according to version released in offical charts rep(https://hwameistor.io)
+## according to version released in official charts rep(https://hwameistor.io)
 
 # /bin/bash
 
@@ -9,7 +9,7 @@ releaseVersion=$1
 echo "release version must be specified!(example: bash upgrade_hwameistor.sh v0.9.3)" && \
 exit 1
 
-rootProgram="$(dirname $PWD)/.."
+rootProgram="$(dirname "$PWD")/.."
 # Step1: download specified version charts
 
 echo "Step1: download specified version charts"
@@ -24,12 +24,12 @@ OS=$(uname)
 if [ "$OS" == "Darwin" ];then 
 	sed -i '' "s/$oldVersion/$releaseVersion/g" config
 elif [ "$OS" == "Linux" ] 
-    sed -i "s/$oldVersion/$releaseVersion/g" config
+  sed -i "s/$oldVersion/$releaseVersion/g" config
 then 
-    echo "Unsupport OS $OS" && exit 1
+  echo "Unsupported OS $OS" && exit 1
 fi
 
-cd $rootProgram && make -e PROJECT=hwameistor &>/dev/null
+cd "$rootProgram" && make -e PROJECT=hwameistor &>/dev/null
 
 popd &>/dev/null
 
@@ -50,7 +50,7 @@ echo "keywords:
   - block" >> ./hwameistor/Chart.yaml
 
 echo "
-Updaate hwameistor $releaseVersion success!
+Update hwameistor $releaseVersion success!
 
 Changed files:
 "
