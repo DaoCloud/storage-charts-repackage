@@ -1,12 +1,11 @@
 apiVersion: v2
-appVersion: v0.10.2
+appVersion: v0.10.3
 description: A Helm chart for Hwameistor Operator
 name: hwameistor-operator
 icon: https://hwameistor.io/img/logo.svg
 type: application
-version: v0.10.2
+version: v0.10.3
 keywords:
   - storage
   - local
   - block
-  
