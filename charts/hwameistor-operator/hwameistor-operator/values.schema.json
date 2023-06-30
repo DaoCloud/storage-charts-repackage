@@ -1,0 +1,133 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "global": {
+            "title": "Global Settings",
+            "type": "object",
+            "default": {},
+            "required": [
+                "targetNamespace"
+            ],
+            "properties": {
+                "targetNamespace": {
+                    "title": "Target Namespace to install hwameistor components",
+                    "type": "string",
+                    "default": "hwameistor",
+                    "examples": [
+                        "hwameistor"
+                    ]
+                }
+            }
+        },
+        "localDiskManager": {
+            "title": "Config Settings",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "csi": {
+                    "type": "object",
+                    "properties": {
+                        "controller": {
+                            "type": "object",
+                            "properties": {
+                                "replicas": {
+                                    "type": "integer",
+                                    "default": 2
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "localStorage": {
+            "title": "Config Settings",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "csi": {
+                    "type": "object",
+                    "properties": {
+                        "controller": {
+                            "type": "object",
+                            "properties": {
+                                "replicas": {
+                                    "type": "integer",
+                                    "default": 2
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "scheduler": {
+            "type": "object",
+            "properties": {
+                "replicas": {
+                    "type": "integer",
+                    "default": 2
+                }
+            }
+        },
+        "admission": {
+            "type": "object",
+            "properties": {
+                "replicas": {
+                    "type": "integer",
+                    "default": 2
+                }
+            }
+        },
+        "evictor": {
+            "type": "object",
+            "properties": {
+                "replicas": {
+                    "type": "integer",
+                    "default": 2
+                }
+            }
+        },
+        "apiserver": {
+            "type": "object",
+            "properties": {
+                "replicas": {
+                    "type": "integer",
+                    "default": 2
+                }
+            }
+        },
+        "exporter": {
+            "type": "object",
+            "properties": {
+                "replicas": {
+                    "type": "integer",
+                    "default": 2
+                }
+            }
+        },
+        "ui": {
+            "type": "object",
+            "properties": {
+                "replicas": {
+                    "type": "integer",
+                    "default": 2
+                }
+            }
+        },
+        "ha": {
+            "type": "object",
+            "properties": {
+                "disable": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "deployOnMaster": {
+                    "type": "string",
+                    "default": "yes"
+                }
+            }
+        }
+    }
+}
