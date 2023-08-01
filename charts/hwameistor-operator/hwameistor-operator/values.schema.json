@@ -21,7 +21,7 @@
             }
         },
         "localDiskManager": {
-            "title": "Config Settings",
+            "title": "localDiskManager",
             "type": "object",
             "default": {},
             "properties": {
@@ -42,7 +42,7 @@
             }
         },
         "localStorage": {
-            "title": "Config Settings",
+            "title": "localStorage",
             "type": "object",
             "default": {},
             "properties": {
