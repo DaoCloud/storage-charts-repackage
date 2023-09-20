@@ -72,6 +72,16 @@ spec:
             registry: {{ $.Values.global.k8sImageRegistry }}
             repository: {{ $.Values.localStorage.csi.monitor.imageRepository }}
             tag: {{ $.Values.localStorage.csi.monitor.tag }}
+        snapshotController:
+          image:
+            registry: {{ $.Values.global.k8sImageRegistry }}
+            repository: {{ $.Values.localStorage.csi.snapshotController.imageRepository }}
+            tag: {{ $.Values.localStorage.csi.snapshotController.tag }}
+        snapshotter:
+          image:
+            registry: {{ $.Values.global.k8sImageRegistry }}
+            repository: {{ $.Values.localStorage.csi.snapshotter.imageRepository }}
+            tag: {{ $.Values.localStorage.csi.snapshotter.tag }}
     member:
       image:
         registry: {{ $.Values.global.hwameistorImageRegistry }}
@@ -80,6 +90,8 @@ spec:
       rcloneImage:
         repository: {{ $.Values.localStorage.migrate.rclone.imageRepository }}
         tag: {{ $.Values.localStorage.migrate.rclone.tag }}
+      hostPathSSHDir: {{ $.Values.localStorage.member.hostPathSSHDir }}
+      hostPathDRBDDir: {{ $.Values.localStorage.member.hostPathDRBDDir }}
     tolerationOnMaster: {{ $.Values.localStorage.tolerationOnMaster }}
   scheduler:
     disable: {{ $.Values.scheduler.disable }}
@@ -125,6 +137,38 @@ spec:
         registry: {{ $.Values.global.hwameistorImageRegistry }}
         repository: {{ $.Values.exporter.imageRepository }}
         tag: {{ template "hwameistor.exporterImageTag" . }}
+  auditor:
+    disable: {{ $.Values.auditor.disable }}
+    replicas: {{ $.Values.auditor.replicas }}
+    auditor:
+      image:
+        registry: {{ $.Values.global.hwameistorImageRegistry }}
+        repository: {{ $.Values.auditor.imageRepository }}
+        tag: {{ template "hwameistor.exporterImageTag" . }}
+  failoverAssistant:
+    disable: {{ $.Values.failoverAssistant.disable }}
+    replicas: {{ $.Values.failoverAssistant.replicas }}
+    assistant:
+      image:
+        registry: {{ $.Values.global.hwameistorImageRegistry }}
+        repository: {{ $.Values.failoverAssistant.imageRepository }}
+        tag: {{ template "hwameistor.failoverAssistantImageTag" . }}
+  pvcAutoResizer:
+    disable: {{ $.Values.pvcAutoResizer.disable }}
+    replicas: {{ $.Values.pvcAutoResizer.replicas }}
+    autoresizer:
+      image:
+        registry: {{ $.Values.global.hwameistorImageRegistry }}
+        repository: {{ $.Values.pvcAutoResizer.imageRepository }}
+        tag: {{ template "hwameistor.pvcAutoResizerImageTag" . }}
+  localDiskActionController:
+    disable: {{ $.Values.localDiskActionController.disable }}
+    replicas: {{ $.Values.localDiskActionController.replicas }}
+    controller:
+      image:
+        registry: {{ $.Values.global.hwameistorImageRegistry }}
+        repository: {{ $.Values.localDiskActionController.imageRepository }}
+        tag: {{ template "hwameistor.localDiskActionControllerImageTag" . }}
   ui:
     disable: {{ $.Values.ui.disable }}
     replicas: {{ $.Values.ui.replicas }}
