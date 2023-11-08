@@ -1,0 +1,10 @@
+export USE_OPENSOURCE_CHART=false
+
+# must
+export REPO_URL=https://fluid-cloudnative.github.io/charts
+export REPO_NAME=fluid
+export CHART_NAME=fluid
+export VERSION=0.9.2
+
+# push to daocloud repo
+export DAOCLOUD_REPO_PROJECT=addon
