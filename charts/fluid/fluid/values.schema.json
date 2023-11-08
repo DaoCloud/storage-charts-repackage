@@ -1,0 +1,427 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "fluid": {
+            "type": "object",
+            "properties": {
+                "crdUpgrade": {
+                    "type": "object",
+                    "properties": {
+                        "image": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "csi": {
+                    "type": "object",
+                    "properties": {
+                        "config": {
+                            "type": "object",
+                            "properties": {
+                                "hostNetwork": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "featureGates": {
+                            "type": "string"
+                        },
+                        "kubelet": {
+                            "type": "object",
+                            "properties": {
+                                "certDir": {
+                                    "type": "string"
+                                },
+                                "kubeConfigFile": {
+                                    "type": "string"
+                                },
+                                "rootDir": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "plugins": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "pruneFs": {
+                            "type": "string"
+                        },
+                        "recoverWarningThreshold": {
+                            "type": "integer"
+                        },
+                        "registrar": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "dataset": {
+                    "type": "object",
+                    "properties": {
+                        "controller": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "replicas": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "fluidapp": {
+                    "type": "object",
+                    "properties": {
+                        "controller": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "replicas": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "imagePullSecrets": {
+                            "type": "array"
+                        }
+                    }
+                },
+                "namespace": {
+                    "type": "string"
+                },
+                "runtime": {
+                    "type": "object",
+                    "properties": {
+                        "alluxio": {
+                            "type": "object",
+                            "properties": {
+                                "controller": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "fuse": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "init": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "portAllocatePolicy": {
+                                    "type": "string"
+                                },
+                                "portRange": {
+                                    "type": "string"
+                                },
+                                "replicas": {
+                                    "type": "integer"
+                                },
+                                "runtime": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "runtimeWorkers": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "criticalFusePod": {
+                            "type": "boolean"
+                        },
+                        "efc": {
+                            "type": "object",
+                            "properties": {
+                                "controller": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        },
+                                        "imagePullPolicy": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "fuse": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "init": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "master": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "replicas": {
+                                    "type": "integer"
+                                },
+                                "worker": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "goosefs": {
+                            "type": "object",
+                            "properties": {
+                                "controller": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "fuse": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "init": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "portAllocatePolicy": {
+                                    "type": "string"
+                                },
+                                "portRange": {
+                                    "type": "string"
+                                },
+                                "replicas": {
+                                    "type": "integer"
+                                },
+                                "runtime": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "runtimeWorkers": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "jindo": {
+                            "type": "object",
+                            "properties": {
+                                "controller": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "engine": {
+                                    "type": "string"
+                                },
+                                "fuse": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "init": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        },
+                                        "portCheck": {
+                                            "type": "object",
+                                            "properties": {
+                                                "enabled": {
+                                                    "type": "boolean"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "portAllocatePolicy": {
+                                    "type": "string"
+                                },
+                                "portRange": {
+                                    "type": "string"
+                                },
+                                "queryUfsTotal": {
+                                    "type": "boolean"
+                                },
+                                "replicas": {
+                                    "type": "integer"
+                                },
+                                "runtimeWorkers": {
+                                    "type": "integer"
+                                },
+                                "smartdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "juicefs": {
+                            "type": "object",
+                            "properties": {
+                                "controller": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "fuse": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "replicas": {
+                                    "type": "integer"
+                                },
+                                "runtimeWorkers": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "mountRoot": {
+                            "type": "string"
+                        },
+                        "syncRetryDuration": {
+                            "type": "string"
+                        },
+                        "thin": {
+                            "type": "object",
+                            "properties": {
+                                "controller": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "replicas": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                },
+                "webhook": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "image": {
+                            "type": "string"
+                        },
+                        "reinvocationPolicy": {
+                            "type": "string"
+                        },
+                        "replicas": {
+                            "type": "integer"
+                        },
+                        "timeoutSeconds": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "workdir": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
