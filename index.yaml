@@ -1,0 +1,26 @@
+apiVersion: v1
+entries:
+  fluid:
+  - apiVersion: v2
+    appVersion: 0.9.2-02f70ac
+    created: "2023-11-08T06:56:56.779582829Z"
+    dependencies:
+    - name: fluid
+      repository: https://fluid-cloudnative.github.io/charts
+      version: 0.9.2
+    description: A Helm chart to deploy fluid in Kubernetes
+    digest: 7971942b11598283bfb9524200162a8dbe384ac23e80e7dbf456428c1278e6be
+    home: https://github.com/fluid-cloudnative/fluid
+    icon: https://github.com/fluid-cloudnative/fluid/blob/master/static/fluid_logo.jpg
+    keywords:
+    - storage
+    - category:data
+    - fluid
+    - namespace:fluid-system
+    - releaseName:fluid
+    name: fluid
+    type: application
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/fluid-0.9.2.tgz
+    version: 0.9.2
+generated: "2023-11-08T06:56:56.772514776Z"
