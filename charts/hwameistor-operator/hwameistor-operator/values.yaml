@@ -5,19 +5,19 @@ global:
   #hwameistorImageRegistry: ghcr.m.daocloud.io
   k8sImageRegistry: m.daocloud.io/registry.k8s.io
   # k8sImageRegistry: m.daocloud.io/registry.k8s.io
-  hwameistorVersion: v0.14.0
+  hwameistorVersion: v0.14.1
 
 operator:
   replicas: 1
   imageRepository: hwameistor/operator
-  tag: v0.14.0
+  tag: v0.14.1
  
 localDiskManager:
   tolerationOnMaster: true
   kubeletRootDir: /var/lib/kubelet
   manager:
     imageRepository: hwameistor/local-disk-manager
-    tag: v0.14.0
+    tag: v0.14.1
     resources:
       limits:
         cpu: 300m
@@ -65,7 +65,7 @@ localStorage:
   kubeletRootDir: /var/lib/kubelet
   member:
     imageRepository: hwameistor/local-storage
-    tag: v0.14.0
+    tag: v0.14.1
     resources:
       limits:
         cpu: 500m
@@ -162,7 +162,7 @@ scheduler:
   disable: false
   replicas: 1
   imageRepository: hwameistor/scheduler
-  tag: v0.14.0
+  tag: v0.14.1
   resources:
     limits:
       cpu: 300m
@@ -175,7 +175,7 @@ admission:
   disable: false
   replicas: 1
   imageRepository: hwameistor/admission
-  tag: v0.14.0
+  tag: v0.14.1
   resources:
     limits:
       cpu: 300m
@@ -188,10 +188,10 @@ admission:
   failurePolicy: "Ignore"
   
 evictor:
-  disable: false
-  replicas: 1
+  disable: true
+  replicas: 0
   imageRepository: hwameistor/evictor
-  tag: v0.14.0
+  tag: v0.14.1
   resources:
     limits:
       cpu: 300m
@@ -204,7 +204,7 @@ apiserver:
   disable: false
   replicas: 1
   imageRepository: hwameistor/apiserver
-  tag: v0.14.0
+  tag: v0.14.1
   resources:
     limits:
       cpu: 300m
@@ -221,7 +221,7 @@ exporter:
   disable: false
   replicas: 1
   imageRepository: hwameistor/exporter
-  tag: v0.14.0
+  tag: v0.14.1
   resources:
     limits:
       cpu: 300m
@@ -234,7 +234,7 @@ auditor:
   disable: false
   replicas: 1
   imageRepository: hwameistor/auditor
-  tag: v0.14.0
+  tag: v0.14.1
   resources:
     limits:
       cpu: 300m
@@ -247,7 +247,7 @@ failoverAssistant:
   disable: false
   replicas: 1
   imageRepository: hwameistor/failover-assistant
-  tag: v0.14.0
+  tag: v0.14.1
   resources:
     limits:
       cpu: 300m
@@ -260,7 +260,7 @@ pvcAutoResizer:
   disable: false
   replicas: 1
   imageRepository: hwameistor/pvc-autoresizer
-  tag: v0.14.0
+  tag: v0.14.1
   resources:
     limits:
       cpu: 300m
@@ -273,7 +273,7 @@ localDiskActionController:
   disable: false
   replicas: 1
   imageRepository: hwameistor/local-disk-action-controller
-  tag: v0.14.0
+  tag: v0.14.1
   resources:
     limits:
       cpu: 300m
@@ -286,7 +286,7 @@ ui:
   disable: false
   replicas: 1
   imageRepository: hwameistor/hwameistor-ui
-  tag: v0.15.0
+  tag: v0.15.1
   resources:
     limits:
       cpu: 300m
