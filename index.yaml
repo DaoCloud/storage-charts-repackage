@@ -1,0 +1,204 @@
+apiVersion: v1
+entries:
+  fluid:
+  - apiVersion: v2
+    appVersion: 0.9.2-02f70ac
+    created: "2024-05-09T07:58:54.912529372Z"
+    dependencies:
+    - name: fluid
+      repository: https://fluid-cloudnative.github.io/charts
+      version: 0.9.2
+    description: A Helm chart to deploy fluid in Kubernetes
+    digest: 51f15e5a101f360506565cb1b57bfed448314be89f26fab8df75caf21b82c418
+    home: https://github.com/fluid-cloudnative/fluid
+    icon: https://raw.githubusercontent.com/fluid-cloudnative/fluid/master/static/fluid_logo.jpg
+    keywords:
+    - storage
+    - category:data
+    - fluid
+    - namespace:fluid-system
+    - releaseName:fluid
+    name: fluid
+    type: application
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/fluid-0.9.2.tgz
+    version: 0.9.2
+  hwameistor:
+  - apiVersion: v2
+    appVersion: v0.9.3
+    created: "2024-05-09T07:58:54.916107006Z"
+    description: the HwameiStor local storage
+    digest: 9bdbcc0189b1624b59f36fa92598c7e7df89fdf9cdf45a921ac0b51674bc53b1
+    icon: https://hwameistor.io/img/logo.svg
+    keywords:
+    - storage
+    - local
+    - block
+    name: hwameistor
+    type: application
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/hwameistor-v0.9.3.tgz
+    version: v0.9.3
+  hwameistor-operator:
+  - apiVersion: v2
+    appVersion: v0.14.6
+    created: "2024-05-09T07:58:54.915136848Z"
+    description: A Helm chart for Hwameistor Operator
+    digest: d87bf9b6391ce223a1d27de9dffcf97d6dc6052d8f82945734c9ff75fdad6ca7
+    icon: https://hwameistor.io/img/logo.svg
+    name: hwameistor-operator
+    type: application
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/hwameistor-operator-v0.14.6.tgz
+    version: v0.14.6
+  longhorn:
+  - apiVersion: v1
+    appVersion: v1.3.2
+    created: "2024-05-09T07:58:54.917386109Z"
+    description: Longhorn is a distributed block storage system for Kubernetes.
+    digest: 415b06dc002a0e03eff1fe4c80a1305a89db668f3a9d124ea1258ed28dd8f183
+    home: https://github.com/longhorn/longhorn
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/longhorn/icon/color/longhorn-icon-color.png
+    keywords:
+    - longhorn
+    - storage
+    - distributed
+    - block
+    - device
+    - iscsi
+    - nfs
+    kubeVersion: '>=1.18.0-0 <1.25.0-0'
+    maintainers:
+    - email: maintainers@longhorn.io
+      name: Longhorn maintainers
+    name: longhorn
+    sources:
+    - https://github.com/longhorn/longhorn
+    - https://github.com/longhorn/longhorn-engine
+    - https://github.com/longhorn/longhorn-instance-manager
+    - https://github.com/longhorn/longhorn-share-manager
+    - https://github.com/longhorn/longhorn-manager
+    - https://github.com/longhorn/longhorn-ui
+    - https://github.com/longhorn/longhorn-tests
+    - https://github.com/longhorn/backing-image-manager
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/longhorn-1.3.2.tgz
+    version: 1.3.2
+  nfs-subdir-external-provisioner:
+  - apiVersion: v1
+    appVersion: 4.0.2
+    created: "2024-05-09T07:58:54.91781578Z"
+    description: nfs-subdir-external-provisioner is an automatic provisioner that
+      used your *already configured* NFS server, automatically creating Persistent
+      Volumes.
+    digest: 17c56d9e788aabc1f8baeaf90e14b2bfed1bedd5e4df76c5de286d2eb1287af8
+    keywords:
+    - nfs
+    - storage
+    - provisioner
+    kubeVersion: '>=1.9.0-0'
+    name: nfs-subdir-external-provisioner
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/nfs-subdir-external-provisioner-4.0.17.tgz
+    version: 4.0.17
+  openebs:
+  - apiVersion: v2
+    appVersion: 3.3.0
+    created: "2024-05-09T07:58:54.950394309Z"
+    dependencies:
+    - condition: openebs-ndm.enabled
+      name: openebs-ndm
+      repository: https://openebs.github.io/node-disk-manager
+      version: 2.0.0
+    - condition: localpv-provisioner.enabled
+      name: localpv-provisioner
+      repository: https://openebs.github.io/dynamic-localpv-provisioner
+      version: 3.3.0
+    - condition: cstor.enabled
+      name: cstor
+      repository: https://openebs.github.io/cstor-operators
+      version: 3.3.0
+    - condition: jiva.enabled
+      name: jiva
+      repository: https://openebs.github.io/jiva-operator
+      version: 3.3.0
+    - condition: zfs-localpv.enabled
+      name: zfs-localpv
+      repository: https://openebs.github.io/zfs-localpv
+      version: 2.1.0
+    - condition: lvm-localpv.enabled
+      name: lvm-localpv
+      repository: https://openebs.github.io/lvm-localpv
+      version: 1.0.0
+    - condition: nfs-provisioner.enabled
+      name: nfs-provisioner
+      repository: https://openebs.github.io/dynamic-nfs-provisioner
+      version: 0.9.0
+    description: Containerized Attached Storage for Kubernetes
+    digest: d269cdcb5c7f35aa02c131c7595a2171bd6a7da9bdb1ae6adff053ff62ddfcc5
+    home: http://www.openebs.io/
+    icon: https://raw.githubusercontent.com/cncf/artwork/HEAD/projects/openebs/icon/color/openebs-icon-color.png
+    keywords:
+    - cloud-native-storage
+    - block-storage
+    - local-storage
+    - iSCSI
+    - NVMe
+    - storage
+    - kubernetes
+    maintainers:
+    - email: kiran.mova@mayadata.io
+      name: kmova
+    - email: prateek.pandey@mayadata.io
+      name: prateekpandey14
+    - email: shovan.maity@mayadata.io
+      name: shovanmaity
+    name: openebs
+    sources:
+    - https://github.com/openebs/openebs
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/openebs-3.3.1.tgz
+    version: 3.3.1
+  rook-ceph:
+  - apiVersion: v2
+    appVersion: v1.10.5
+    created: "2024-05-09T07:58:54.957465555Z"
+    dependencies:
+    - name: library
+      repository: file://../library
+      version: 0.0.1
+    description: File, Block, and Object Storage Services for your Cloud-Native Environment
+    digest: 6a0b3eb07dda414c9df2bdbf2bfd6f55bd2e3ddd58c16fb9beefc87d5b754722
+    icon: https://rook.io/images/rook-logo.svg
+    keywords:
+    - rook
+    - ceph
+    - storage
+    name: rook-ceph
+    sources:
+    - https://github.com/rook/rook
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/rook-ceph-v1.10.5.tgz
+    version: v1.10.5
+  rook-ceph-cluster:
+  - apiVersion: v2
+    appVersion: v1.10.5
+    created: "2024-05-09T07:58:54.951909873Z"
+    dependencies:
+    - name: library
+      repository: file://../library
+      version: 0.0.1
+    description: Manages a single Ceph cluster namespace for Rook
+    digest: 91b474cb6f9e7a0910debded89725f076baf35e273590c53b9c0f514b14fb3a1
+    icon: https://rook.io/images/rook-logo.svg
+    keywords:
+    - rook
+    - ceph
+    - storage
+    name: rook-ceph-cluster
+    sources:
+    - https://github.com/rook/rook
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/rook-ceph-cluster-v1.10.5.tgz
+    version: v1.10.5
+generated: "2024-05-09T07:58:54.906106162Z"
