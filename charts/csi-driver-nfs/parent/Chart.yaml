@@ -1,0 +1,14 @@
+apiVersion: v1
+appVersion: v4.7.0
+description: CSI NFS Driver for Kubernetes
+name: csi-driver-nfs
+version: v4.7.0
+dependencies:
+  - name: csi-driver-nfs
+    version: "v4.7.0"
+    repository: "https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts"
+keywords:
+- storage
+- nfs
+- csi-nfs
+icon: https://avatars.githubusercontent.com/u/33050221
