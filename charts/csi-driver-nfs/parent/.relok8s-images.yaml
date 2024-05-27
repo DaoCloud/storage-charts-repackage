@@ -1,0 +1,7 @@
+- "{{ .image.nfs.repository}}:{{ .image.nfs.tag }}"
+- "{{ .image.csiProvisioner.repository}}:{{ .image.csiProvisioner.tag }}"
+- "{{ .image.csiSnapshotter.repository}}:{{ .image.csiSnapshotter.tag }}"
+- "{{ .image.livenessProbe.repository}}:{{ .image.livenessProbe.tag }}"
+- "{{ .image.nodeDriverRegistrar.repository}}:{{ .image.nodeDriverRegistrar.tag }}"
+- "{{ .image.externalSnapshotter.repository}}:{{ .image.externalSnapshotter.tag }}"
+- "{{ .image.externalSnapshotter.repository}}:{{ .image.externalSnapshotter.tag }}"
