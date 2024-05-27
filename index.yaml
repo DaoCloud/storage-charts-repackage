@@ -1,0 +1,18 @@
+apiVersion: v1
+entries:
+  csi-driver-nfs:
+  - apiVersion: v1
+    appVersion: v4.7.0
+    created: "2024-05-27T06:04:27.289861932Z"
+    description: CSI NFS Driver for Kubernetes
+    digest: 72b6e2795c0d357e3e64e793b34c1033802bf5312a7043327308139c44da1ac7
+    icon: https://avatars.githubusercontent.com/u/33050221
+    keywords:
+    - storage
+    - nfs
+    - csi-nfs
+    name: csi-driver-nfs
+    urls:
+    - https://DaoCloud.github.io/storage-charts-repackage/csi-driver-nfs-v4.7.0.tgz
+    version: v4.7.0
+generated: "2024-05-27T06:04:27.288188479Z"
