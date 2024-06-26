@@ -2,130 +2,564 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "global": {
-            "title": "Global Settings",
-            "type": "object",
-            "default": {},
-            "required": [
-                "targetNamespace"
-            ],
-            "properties": {
-                "targetNamespace": {
-                    "title": "Target Namespace to install hwameistor components",
-                    "type": "string",
-                    "default": "hwameistor",
-                    "examples": [
-                        "hwameistor"
-                    ]
-                }
-            }
-        },
-        "localDiskManager": {
-            "title": "localDiskManager",
-            "type": "object",
-            "default": {},
-            "properties": {
-                "csi": {
-                    "type": "object",
-                    "properties": {
-                        "controller": {
-                            "type": "object",
-                            "properties": {
-                                "replicas": {
-                                    "type": "integer",
-                                    "default": 2
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "localStorage": {
-            "title": "localStorage",
-            "type": "object",
-            "default": {},
-            "properties": {
-                "csi": {
-                    "type": "object",
-                    "properties": {
-                        "controller": {
-                            "type": "object",
-                            "properties": {
-                                "replicas": {
-                                    "type": "integer",
-                                    "default": 2
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "scheduler": {
-            "type": "object",
-            "properties": {
-                "replicas": {
-                    "type": "integer",
-                    "default": 2
-                }
-            }
-        },
         "admission": {
             "type": "object",
             "properties": {
+                "disable": {
+                    "type": "boolean"
+                },
+                "failurePolicy": {
+                    "type": "string"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
                 "replicas": {
-                    "type": "integer",
-                    "default": 2
-                }
-            }
-        },
-        "evictor": {
-            "type": "object",
-            "properties": {
-                "replicas": {
-                    "type": "integer",
-                    "default": 2
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
                 }
             }
         },
         "apiserver": {
             "type": "object",
             "properties": {
+                "authentication": {
+                    "type": "object",
+                    "properties": {
+                        "accessId": {
+                            "type": "string"
+                        },
+                        "enable": {
+                            "type": "boolean"
+                        },
+                        "secretKey": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "disable": {
+                    "type": "boolean"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
                 "replicas": {
-                    "type": "integer",
-                    "default": 2
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "auditor": {
+            "type": "object",
+            "properties": {
+                "disable": {
+                    "type": "boolean"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
+                "replicas": {
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "dataLoadManager": {
+            "type": "object",
+            "properties": {
+                "disable": {
+                    "type": "boolean"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                },
+                "tolerationOnMaster": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "dataSetManager": {
+            "type": "object",
+            "properties": {
+                "disable": {
+                    "type": "boolean"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                },
+                "tolerationOnMaster": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "drbdBionic": {
+            "type": "object",
+            "properties": {
+                "imageRepository": {
+                    "type": "string"
+                }
+            }
+        },
+        "drbdFocal": {
+            "type": "object",
+            "properties": {
+                "imageRepository": {
+                    "type": "string"
+                }
+            }
+        },
+        "drbdKylin10": {
+            "type": "object",
+            "properties": {
+                "imageRepository": {
+                    "type": "string"
+                }
+            }
+        },
+        "drbdRhel7": {
+            "type": "object",
+            "properties": {
+                "imageRepository": {
+                    "type": "string"
+                }
+            }
+        },
+        "drbdRhel8": {
+            "type": "object",
+            "properties": {
+                "imageRepository": {
+                    "type": "string"
+                }
+            }
+        },
+        "drbdRhel9": {
+            "type": "object",
+            "properties": {
+                "imageRepository": {
+                    "type": "string"
+                }
+            }
+        },
+        "evictor": {
+            "type": "object",
+            "properties": {
+                "disable": {
+                    "type": "boolean"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
+                "replicas": {
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
                 }
             }
         },
         "exporter": {
             "type": "object",
             "properties": {
+                "disable": {
+                    "type": "boolean"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
                 "replicas": {
-                    "type": "integer",
-                    "default": 2
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
                 }
             }
         },
-        "ui": {
+        "failoverAssistant": {
             "type": "object",
             "properties": {
+                "disable": {
+                    "type": "boolean"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
                 "replicas": {
-                    "type": "integer",
-                    "default": 2
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "global": {
+            "type": "object",
+            "properties": {
+                "hwameistorImageRegistry": {
+                    "type": "string"
+                },
+                "hwameistorVersion": {
+                    "type": "string"
+                },
+                "k8sImageRegistry": {
+                    "type": "string"
+                },
+                "notClaimDisk": {
+                    "type": "boolean"
+                },
+                "targetNamespace": {
+                    "type": "string"
                 }
             }
         },
         "ha": {
             "type": "object",
             "properties": {
-                "disable": {
-                    "type": "boolean",
-                    "default": false
-                },
                 "deployOnMaster": {
-                    "type": "string",
-                    "default": "yes"
+                    "type": "string"
+                },
+                "disable": {
+                    "type": "boolean"
+                },
+                "drbdVersion": {
+                    "type": "string"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
+                "module": {
+                    "type": "string"
+                },
+                "shipperChar": {
+                    "type": "string"
+                }
+            }
+        },
+        "localDiskActionController": {
+            "type": "object",
+            "properties": {
+                "disable": {
+                    "type": "boolean"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
+                "replicas": {
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "localDiskManager": {
+            "type": "object",
+            "properties": {
+                "csi": {
+                    "type": "object",
+                    "properties": {
+                        "attacher": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "controller": {
+                            "type": "object",
+                            "properties": {
+                                "replicas": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "provisioner": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "registrar": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "kubeletRootDir": {
+                    "type": "string"
+                },
+                "manager": {
+                    "type": "object",
+                    "properties": {
+                        "imageRepository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "tolerationOnMaster": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "localStorage": {
+            "type": "object",
+            "properties": {
+                "csi": {
+                    "type": "object",
+                    "properties": {
+                        "attacher": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "controller": {
+                            "type": "object",
+                            "properties": {
+                                "replicas": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "monitor": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "provisioner": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "registrar": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "resizer": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "snapshotController": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "snapshotter": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "disable": {
+                    "type": "boolean"
+                },
+                "kubeletRootDir": {
+                    "type": "string"
+                },
+                "member": {
+                    "type": "object",
+                    "properties": {
+                        "hostPathDRBDDir": {
+                            "type": "string"
+                        },
+                        "hostPathSSHDir": {
+                            "type": "string"
+                        },
+                        "imageRepository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "migrate": {
+                    "type": "object",
+                    "properties": {
+                        "juicesync": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "rclone": {
+                            "type": "object",
+                            "properties": {
+                                "imageRepository": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "snapshot": {
+                    "type": "object",
+                    "properties": {
+                        "disable": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "tolerationOnMaster": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "operator": {
+            "type": "object",
+            "properties": {
+                "imageRepository": {
+                    "type": "string"
+                },
+                "replicas": {
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "preHookJob": {
+            "type": "object",
+            "properties": {
+                "imageRepository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "number"
+                }
+            }
+        },
+        "pvcAutoResizer": {
+            "type": "object",
+            "properties": {
+                "disable": {
+                    "type": "boolean"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
+                "replicas": {
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "scheduler": {
+            "type": "object",
+            "properties": {
+                "disable": {
+                    "type": "boolean"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
+                "replicas": {
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "ui": {
+            "type": "object",
+            "properties": {
+                "disable": {
+                    "type": "boolean"
+                },
+                "imageRepository": {
+                    "type": "string"
+                },
+                "replicas": {
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
                 }
             }
         }
