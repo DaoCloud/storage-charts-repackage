@@ -11,6 +11,7 @@ spec:
     - {{ . }}
     {{- end }}
   {{- end }}
+  datasetDefaultPoolClass: {{ $.Values.datasetDefaultPoolClass }}
   notClaimDisk: {{ $.Values.global.notClaimDisk }}
   targetNamespace: {{ $.Values.global.targetNamespace }}
   rbac:
@@ -234,10 +235,9 @@ spec:
     {{- end }}
     deployOnMaster: {{ $.Values.ha.deployOnMaster | quote }}
     shipper:
-      image:
-        registry: {{ $.Values.global.hwameistorImageRegistry }}
-        repository: {{.Values.ha.imageRepository}}
-        tag: {{$.Values.ha.shipperChar}}
+      registry: {{ $.Values.global.hwameistorImageRegistry }}
+      repository: {{.Values.ha.imageRepository}}
+      tag: {{$.Values.ha.shipperChar}}
     imagePullPolicy: "IfNotPresent"
     # drbdVersion: "v9.0.32-1"
     drbdVersion: {{ $.Values.ha.drbdVersion }}
@@ -252,8 +252,24 @@ spec:
             operator: DoesNotExist
           - key: node-role.kubernetes.io/control-plane
             operator: DoesNotExist
-    chartVersion: "v0.4.0"
+    chartVersion: "v0.4.1"
   storageClass:
-    allowVolumeExpansion: true
-    reclaimPolicy: "Delete"
+    allowVolumeExpansion: {{ $.Values.storageClass.allowVolumeExpansion }}
+    reclaimPolicy: {{ $.Values.storageClass.reclaimPolicy }}
     fsType: "xfs"
+
+  dataLoadManager:
+    disable: {{ $.Values.dataLoadManager.disable }}
+    dataLoadManagerContainer:
+      image:
+        registry: {{ $.Values.global.hwameistorImageRegistry }}
+        repository: {{ $.Values.dataLoadManager.imageRepository }}
+        tag: {{ template "hwameistor.dataLoalManagerImageTag" . }}
+
+  dataSetManager:
+    disable: {{ $.Values.dataSetManager.disable }}
+    dataSetManagerContainer:
+      image:
+        registry: {{ $.Values.global.hwameistorImageRegistry }}
+        repository: {{ $.Values.dataSetManager.imageRepository }}
+        tag: {{ template "hwameistor.dataSetManagerImageTag" . }}
