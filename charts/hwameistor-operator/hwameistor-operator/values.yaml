@@ -1,63 +1,35 @@
 global:
   targetNamespace: hwameistor
   notClaimDisk: false
+  #hwameistorImageRegistry: ghcr.io
   hwameistorImageRegistry: ghcr.m.daocloud.io
-  #hwameistorImageRegistry: ghcr.m.daocloud.io
-  k8sImageRegistry: m.daocloud.io/registry.k8s.io
-  # k8sImageRegistry: m.daocloud.io/registry.k8s.io
-  hwameistorVersion: v0.14.1
+  #k8sImageRegistry: registry.k8s.io
+  k8sImageRegistry: k8s.m.daocloud.io
+  hwameistorVersion: v0.14.7
 
 operator:
   replicas: 1
   imageRepository: hwameistor/operator
-  tag: v0.14.4
+  tag: v0.14.9
  
 localDiskManager:
   tolerationOnMaster: true
   kubeletRootDir: /var/lib/kubelet
   manager:
     imageRepository: hwameistor/local-disk-manager
-    tag: v0.14.1
-    resources:
-      limits:
-        cpu: 300m
-        memory: 300Mi
-      requests:
-        cpu: 1m
-        memory: 20Mi
+    tag: v0.14.7
   csi:
     registrar:
       imageRepository: sig-storage/csi-node-driver-registrar
       tag: v2.5.0
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 1m
-          memory: 20Mi
     controller:
       replicas: 1
     provisioner:
       imageRepository: sig-storage/csi-provisioner
       tag: v2.0.3
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 1m
-          memory: 20Mi
     attacher:
       imageRepository: sig-storage/csi-attacher
       tag: v3.0.1
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 1m
-          memory: 20Mi
 
 localStorage:
   disable: false
@@ -65,89 +37,33 @@ localStorage:
   kubeletRootDir: /var/lib/kubelet
   member:
     imageRepository: hwameistor/local-storage
-    tag: v0.14.1
-    resources:
-      limits:
-        cpu: 500m
-        memory: 500Mi
-      requests:
-        cpu: 1m
-        memory: 20Mi
+    tag: v0.14.7
     hostPathSSHDir: /root/.ssh
     hostPathDRBDDir: /etc/drbd.d
   csi:
     registrar:
       imageRepository: sig-storage/csi-node-driver-registrar
       tag: v2.5.0
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 1m
-          memory: 20Mi
     controller:
       replicas: 1
     provisioner:
       imageRepository: sig-storage/csi-provisioner
       tag: v3.5.0
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 1m
-          memory: 20Mi
     attacher:
       imageRepository: sig-storage/csi-attacher
       tag: v3.0.1
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 1m
-          memory: 20Mi
     resizer:
       imageRepository: sig-storage/csi-resizer
       tag: v1.0.1
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 1m
-          memory: 20Mi
     monitor:
       imageRepository: sig-storage/csi-external-health-monitor-controller
       tag: v0.8.0
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 1m
-          memory: 20Mi
     snapshotController:
       imageRepository: sig-storage/snapshot-controller
       tag: v6.0.0
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 1m
-          memory: 20Mi
     snapshotter:
       imageRepository: sig-storage/csi-snapshotter
       tag: v6.0.0
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 1m
-          memory: 20Mi
   migrate:
     rclone:
       imageRepository: rclone/rclone
@@ -162,27 +78,13 @@ scheduler:
   disable: false
   replicas: 1
   imageRepository: hwameistor/scheduler
-  tag: v0.14.1
-  resources:
-    limits:
-      cpu: 300m
-      memory: 300Mi
-    requests:
-      cpu: 1m
-      memory: 20Mi
+  tag: v0.14.7
 
 admission:
   disable: false
   replicas: 1
   imageRepository: hwameistor/admission
-  tag: v0.14.1
-  resources:
-    limits:
-      cpu: 300m
-      memory: 300Mi
-    requests:
-      cpu: 1m
-      memory: 20Mi
+  tag: v0.14.7
   # failurePolicy defines how unrecognized errors from the admission endpoint
   # are handled - allowed values are Ignore or Fail. Defaults to Fail.
   failurePolicy: "Ignore"
@@ -191,27 +93,13 @@ evictor:
   disable: true
   replicas: 0
   imageRepository: hwameistor/evictor
-  tag: v0.14.1
-  resources:
-    limits:
-      cpu: 300m
-      memory: 300Mi
-    requests:
-      cpu: 1m
-      memory: 20Mi
+  tag: v0.14.7
 
 apiserver:
   disable: false
   replicas: 1
   imageRepository: hwameistor/apiserver
-  tag: v0.14.1
-  resources:
-    limits:
-      cpu: 300m
-      memory: 300Mi
-    requests:
-      cpu: 1m
-      memory: 20Mi
+  tag: v0.14.7
   authentication:
     enable: false
     accessId: admin
@@ -221,79 +109,37 @@ exporter:
   disable: false
   replicas: 1
   imageRepository: hwameistor/exporter
-  tag: v0.14.1
-  resources:
-    limits:
-      cpu: 300m
-      memory: 300Mi
-    requests:
-      cpu: 1m
-      memory: 20Mi
+  tag: v0.14.7
 
 auditor:
   disable: false
   replicas: 1
   imageRepository: hwameistor/auditor
-  tag: v0.14.1
-  resources:
-    limits:
-      cpu: 300m
-      memory: 300Mi
-    requests:
-      cpu: 1m
-      memory: 20Mi
+  tag: v0.14.7
 
 failoverAssistant:
   disable: false
   replicas: 1
   imageRepository: hwameistor/failover-assistant
-  tag: v0.14.1
-  resources:
-    limits:
-      cpu: 300m
-      memory: 300Mi
-    requests:
-      cpu: 1m
-      memory: 20Mi
+  tag: v0.14.7
 
 pvcAutoResizer:
   disable: false
   replicas: 1
   imageRepository: hwameistor/pvc-autoresizer
-  tag: v0.14.1
-  resources:
-    limits:
-      cpu: 300m
-      memory: 300Mi
-    requests:
-      cpu: 1m
-      memory: 20Mi
+  tag: v0.14.7
 
 localDiskActionController:
   disable: false
   replicas: 1
   imageRepository: hwameistor/local-disk-action-controller
-  tag: v0.14.1
-  resources:
-    limits:
-      cpu: 300m
-      memory: 300Mi
-    requests:
-      cpu: 1m
-      memory: 20Mi
+  tag: v0.14.7
 
 ui:
   disable: false
   replicas: 1
   imageRepository: hwameistor/hwameistor-ui
-  tag: v0.15.1
-  resources:
-    limits:
-      cpu: 300m
-      memory: 300Mi
-    requests:
-      cpu: 1m
-      memory: 20Mi
+  tag: v0.16.1
 
 ha:
   disable: false
@@ -301,7 +147,7 @@ ha:
   deployOnMaster: "yes"
   imageRepository: hwameistor/drbd9-shipper
   drbdVersion: v9.0.32-1
-  shipperChar: v0.4.0
+  shipperChar: v0.4.2
 
 drbdRhel7:
   imageRepository: hwameistor/drbd9-rhel7
@@ -320,6 +166,31 @@ drbdBionic:
 
 drbdFocal:
   imageRepository: hwameistor/drbd9-focal
+
+dataLoadManager:
+  disable: true
+  tolerationOnMaster: true
+  imageRepository: hwameistor/dataload-manager
+  tag: v0.0.1
+
+dataSetManager:
+  disable: true
+  tolerationOnMaster: true
+  imageRepository: hwameistor/dataset-manager
+  tag: v0.0.1
+
+dataLoadInit:
+  imageRepository: hwameistor/dataload-init
+  tag: v0.0.1
+
+# StorageClass Settings
+storageClass:
+  # If allowed, volume can be expanded by modify pvc related field
+  allowVolumeExpansion: true
+  reclaimPolicy: Retain
+
+#storageClassReclaimPolicy: Retain > Delete
+#datasetDefaultPoolClass: NVMe > SSD > HDD
 
 # diskReserve example
 # diskReserve: 
