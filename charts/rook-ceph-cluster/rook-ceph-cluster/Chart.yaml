@@ -11,6 +11,6 @@ sources:
   - https://github.com/rook/rook
 version: v1.15.1
 keywords:
-  - rook
-  - ceph
-  - storage
+- rook
+- ceph
+- storage
