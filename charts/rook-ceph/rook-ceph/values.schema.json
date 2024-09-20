@@ -2,22 +2,45 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "admissionController": {
-            "type": "null"
+        "allowLoopDevices": {
+            "type": "boolean"
         },
         "annotations": {
             "type": "object"
         },
         "cephCommandsTimeoutSeconds": {
-            "type": "string",
-            "default": "15"
+            "type": "string"
+        },
+        "containerSecurityContext": {
+            "type": "object",
+            "properties": {
+                "capabilities": {
+                    "type": "object",
+                    "properties": {
+                        "drop": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "runAsGroup": {
+                    "type": "integer"
+                },
+                "runAsNonRoot": {
+                    "type": "boolean"
+                },
+                "runAsUser": {
+                    "type": "integer"
+                }
+            }
         },
         "crds": {
             "type": "object",
             "properties": {
                 "enabled": {
-                    "type": "boolean",
-                    "default": true
+                    "type": "boolean"
                 }
             }
         },
@@ -25,209 +48,406 @@
             "type": "object",
             "properties": {
                 "allowUnsupportedVersion": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "boolean"
+                },
+                "attacher": {
+                    "type": "object",
+                    "properties": {
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "cephFSAttachRequired": {
+                    "type": "boolean"
                 },
                 "cephFSFSGroupPolicy": {
-                    "type": "string",
-                    "default": "File"
+                    "type": "string"
+                },
+                "cephFSKernelMountOptions": {
+                    "type": "null"
+                },
+                "cephFSPluginUpdateStrategy": {
+                    "type": "null"
+                },
+                "cephFSPluginUpdateStrategyMaxUnavailable": {
+                    "type": "null"
+                },
+                "cephcsi": {
+                    "type": "object",
+                    "properties": {
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "cephfsLivenessMetricsPort": {
+                    "type": "null"
+                },
+                "cephfsPodLabels": {
+                    "type": "null"
+                },
+                "clusterName": {
+                    "type": "null"
                 },
                 "csiAddons": {
                     "type": "object",
                     "properties": {
                         "enabled": {
-                            "type": "boolean",
-                            "default": false
+                            "type": "boolean"
+                        },
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
                         }
                     }
                 },
+                "csiAddonsPort": {
+                    "type": "null"
+                },
                 "csiCephFSPluginResource": {
-                    "type": "string",
-                    "default": "- name : driver-registrar\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n- name : csi-cephfsplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n- name : liveness-prometheus\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n"
+                    "type": "string"
+                },
+                "csiCephFSPluginVolume": {
+                    "type": "null"
+                },
+                "csiCephFSPluginVolumeMount": {
+                    "type": "null"
                 },
                 "csiCephFSProvisionerResource": {
-                    "type": "string",
-                    "default": "- name : csi-provisioner\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-resizer\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-attacher\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-snapshotter\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-cephfsplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n- name : liveness-prometheus\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n"
+                    "type": "string"
+                },
+                "csiDriverNamePrefix": {
+                    "type": "null"
+                },
+                "csiLeaderElectionLeaseDuration": {
+                    "type": "null"
+                },
+                "csiLeaderElectionRenewDeadline": {
+                    "type": "null"
+                },
+                "csiLeaderElectionRetryPeriod": {
+                    "type": "null"
                 },
                 "csiNFSPluginResource": {
-                    "type": "string",
-                    "default": "- name : driver-registrar\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n- name : csi-nfsplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n"
+                    "type": "string"
                 },
                 "csiNFSProvisionerResource": {
-                    "type": "string",
-                    "default": "- name : csi-provisioner\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-nfsplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n"
+                    "type": "string"
                 },
                 "csiRBDPluginResource": {
-                    "type": "string",
-                    "default": "- name : driver-registrar\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n- name : csi-rbdplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n- name : liveness-prometheus\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n"
+                    "type": "string"
+                },
+                "csiRBDPluginVolume": {
+                    "type": "null"
+                },
+                "csiRBDPluginVolumeMount": {
+                    "type": "null"
                 },
                 "csiRBDProvisionerResource": {
-                    "type": "string",
-                    "default": "- name : csi-provisioner\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-resizer\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-attacher\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-snapshotter\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 100m\n    limits:\n      memory: 256Mi\n      cpu: 200m\n- name : csi-rbdplugin\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n- name : csi-omap-generator\n  resource:\n    requests:\n      memory: 512Mi\n      cpu: 250m\n    limits:\n      memory: 1Gi\n      cpu: 500m\n- name : liveness-prometheus\n  resource:\n    requests:\n      memory: 128Mi\n      cpu: 50m\n    limits:\n      memory: 256Mi\n      cpu: 100m\n"
+                    "type": "string"
+                },
+                "disableCsiDriver": {
+                    "type": "string"
+                },
+                "disableHolderPods": {
+                    "type": "boolean"
                 },
                 "enableCSIEncryption": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "boolean"
                 },
                 "enableCSIHostNetwork": {
-                    "type": "boolean",
-                    "default": true
+                    "type": "boolean"
                 },
                 "enableCephfsDriver": {
-                    "type": "boolean",
-                    "default": true
+                    "type": "boolean"
                 },
                 "enableCephfsSnapshotter": {
-                    "type": "boolean",
-                    "default": true
-                },
-                "enableGrpcMetrics": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "boolean"
                 },
                 "enableLiveness": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "boolean"
                 },
                 "enableMetadata": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "boolean"
                 },
                 "enableNFSSnapshotter": {
-                    "type": "boolean",
-                    "default": true
+                    "type": "boolean"
                 },
                 "enableOMAPGenerator": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "boolean"
                 },
                 "enablePluginSelinuxHostMount": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "boolean"
                 },
                 "enableRBDSnapshotter": {
-                    "type": "boolean",
-                    "default": true
+                    "type": "boolean"
                 },
                 "enableRbdDriver": {
-                    "type": "boolean",
-                    "default": true
+                    "type": "boolean"
+                },
+                "enableVolumeGroupSnapshot": {
+                    "type": "boolean"
                 },
                 "forceCephFSKernelClient": {
-                    "type": "boolean",
-                    "default": true
+                    "type": "boolean"
                 },
                 "grpcTimeoutInSeconds": {
-                    "type": "integer",
-                    "default": 150
+                    "type": "integer"
+                },
+                "imagePullPolicy": {
+                    "type": "string"
+                },
+                "kubeApiBurst": {
+                    "type": "null"
+                },
+                "kubeApiQPS": {
+                    "type": "null"
+                },
+                "kubeletDirPath": {
+                    "type": "null"
+                },
+                "logLevel": {
+                    "type": "integer"
                 },
                 "nfs": {
                     "type": "object",
                     "properties": {
                         "enabled": {
-                            "type": "boolean",
-                            "default": false
+                            "type": "boolean"
                         }
                     }
                 },
+                "nfsAttachRequired": {
+                    "type": "boolean"
+                },
                 "nfsFSGroupPolicy": {
-                    "type": "string",
-                    "default": "File"
+                    "type": "string"
+                },
+                "nfsPluginUpdateStrategy": {
+                    "type": "null"
+                },
+                "nfsPodLabels": {
+                    "type": "null"
+                },
+                "pluginNodeAffinity": {
+                    "type": "null"
                 },
                 "pluginPriorityClassName": {
-                    "type": "string",
-                    "default": "system-node-critical"
+                    "type": "string"
+                },
+                "pluginTolerations": {
+                    "type": "null"
+                },
+                "provisioner": {
+                    "type": "object",
+                    "properties": {
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "provisionerNodeAffinity": {
+                    "type": "null"
                 },
                 "provisionerPriorityClassName": {
-                    "type": "string",
-                    "default": "system-cluster-critical"
+                    "type": "string"
                 },
                 "provisionerReplicas": {
-                    "type": "integer",
-                    "default": 2
+                    "type": "integer"
+                },
+                "provisionerTolerations": {
+                    "type": "null"
+                },
+                "rbdAttachRequired": {
+                    "type": "boolean"
                 },
                 "rbdFSGroupPolicy": {
-                    "type": "string",
-                    "default": "File"
+                    "type": "string"
+                },
+                "rbdLivenessMetricsPort": {
+                    "type": "null"
+                },
+                "rbdPluginUpdateStrategy": {
+                    "type": "null"
+                },
+                "rbdPluginUpdateStrategyMaxUnavailable": {
+                    "type": "null"
+                },
+                "rbdPodLabels": {
+                    "type": "null"
+                },
+                "registrar": {
+                    "type": "object",
+                    "properties": {
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "resizer": {
+                    "type": "object",
+                    "properties": {
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "serviceMonitor": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "interval": {
+                            "type": "string"
+                        },
+                        "labels": {
+                            "type": "object"
+                        },
+                        "namespace": {
+                            "type": "null"
+                        }
+                    }
+                },
+                "sidecarLogLevel": {
+                    "type": "null"
+                },
+                "snapshotter": {
+                    "type": "object",
+                    "properties": {
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "topology": {
                     "type": "object",
                     "properties": {
+                        "domainLabels": {
+                            "type": "null"
+                        },
                         "enabled": {
-                            "type": "boolean",
-                            "default": false
+                            "type": "boolean"
                         }
                     }
                 }
             }
         },
         "currentNamespaceOnly": {
-            "type": "boolean",
-            "default": false
-        },
-        "disableAdmissionController": {
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
         },
         "disableDeviceHotplug": {
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
+        },
+        "discover": {
+            "type": "object",
+            "properties": {
+                "nodeAffinity": {
+                    "type": "null"
+                },
+                "podLabels": {
+                    "type": "null"
+                },
+                "resources": {
+                    "type": "null"
+                },
+                "toleration": {
+                    "type": "null"
+                },
+                "tolerationKey": {
+                    "type": "null"
+                },
+                "tolerations": {
+                    "type": "null"
+                }
+            }
         },
         "discoverDaemonUdev": {
             "type": "null"
         },
+        "discoveryDaemonInterval": {
+            "type": "string"
+        },
         "enableDiscoveryDaemon": {
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
         },
         "enableOBCWatchOperatorNamespace": {
-            "type": "boolean",
-            "default": true
+            "type": "boolean"
         },
         "hostpathRequiresPrivileged": {
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
         },
         "image": {
             "type": "object",
             "properties": {
                 "pullPolicy": {
-                    "type": "string",
-                    "default": "IfNotPresent"
+                    "type": "string"
                 },
                 "repository": {
-                    "type": "string",
-                    "default": "rook/ceph"
+                    "type": "string"
                 },
                 "tag": {
-                    "type": "string",
-                    "default": "v1.10.5"
+                    "type": "string"
                 }
             }
         },
+        "imagePullSecrets": {
+            "type": "null"
+        },
         "logLevel": {
-            "type": "string",
-            "default": "INFO"
+            "type": "string"
         },
         "monitoring": {
             "type": "object",
             "properties": {
                 "enabled": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "boolean"
                 }
             }
         },
         "nodeSelector": {
             "type": "object"
         },
+        "obcProvisionerNamePrefix": {
+            "type": "null"
+        },
+        "priorityClassName": {
+            "type": "null"
+        },
         "pspEnable": {
-            "type": "boolean",
-            "default": true
+            "type": "boolean"
+        },
+        "rbacAggregate": {
+            "type": "object",
+            "properties": {
+                "enableOBCs": {
+                    "type": "boolean"
+                }
+            }
         },
         "rbacEnable": {
-            "type": "boolean",
-            "default": true
+            "type": "boolean"
         },
         "resources": {
             "type": "object",
@@ -235,13 +455,8 @@
                 "limits": {
                     "type": "object",
                     "properties": {
-                        "cpu": {
-                            "type": "string",
-                            "default": "500m"
-                        },
                         "memory": {
-                            "type": "string",
-                            "default": "512Mi"
+                            "type": "string"
                         }
                     }
                 },
@@ -249,23 +464,26 @@
                     "type": "object",
                     "properties": {
                         "cpu": {
-                            "type": "string",
-                            "default": "100m"
+                            "type": "string"
                         },
                         "memory": {
-                            "type": "string",
-                            "default": "128Mi"
+                            "type": "string"
                         }
                     }
                 }
             }
         },
+        "scaleDownOperator": {
+            "type": "boolean"
+        },
         "tolerations": {
             "type": "array"
         },
         "unreachableNodeTolerationSeconds": {
-            "type": "integer",
-            "default": 5
+            "type": "integer"
+        },
+        "useOperatorHostNetwork": {
+            "type": "null"
         }
     }
 }

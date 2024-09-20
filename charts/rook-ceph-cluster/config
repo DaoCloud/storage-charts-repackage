@@ -4,7 +4,7 @@ export USE_OPENSOURCE_CHART=false
 export REPO_URL=https://charts.rook.io/release
 export REPO_NAME=rook-ceph-cluster
 export CHART_NAME=rook-ceph-cluster
-export VERSION=1.10.5
+export VERSION=1.15.1
 
 # push to daocloud repo
 export DAOCLOUD_REPO_PROJECT=addon
