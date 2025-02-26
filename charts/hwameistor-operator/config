@@ -4,7 +4,7 @@ export USE_OPENSOURCE_CHART=true
 export REPO_URL=http://hwameistor.io/hwameistor-operator
 export REPO_NAME=hwameistor-operator
 export CHART_NAME=hwameistor-operator
-export VERSION=v0.14.4
+export VERSION=v0.16.2
 
 # push to daocloud repo
 export DAOCLOUD_REPO_PROJECT=addon
