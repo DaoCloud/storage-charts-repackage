@@ -101,7 +101,7 @@ jobs:
           echo "project_list=${project_list}" >>$GITHUB_OUTPUT
 
       - name: Upload chart artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: charts
           path: _upload
