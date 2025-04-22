@@ -1,7 +1,7 @@
 apiVersion: v2
-appVersion: v0.16.2
+appVersion: v0.16.3
 description: A Helm chart for Hwameistor Operator
 icon: https://hwameistor.io/img/logo.svg
 name: hwameistor-operator
 type: application
-version: v0.16.2
+version: v0.16.3
