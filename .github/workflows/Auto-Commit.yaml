@@ -19,7 +19,7 @@ jobs:
 
       - name: Execute upgrade_hwameistor-operator.sh with input
         run: |
-          cd ./storage-charts-repackage/charts/hwameistor-operator
+          cd ./charts/hwameistor-operator
           chmod +x upgrade_hwameistor-operator.sh
           ./upgrade_hwameistor-operator.sh "${{ github.event.inputs.branch_name }}"  
 
