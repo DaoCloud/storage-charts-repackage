@@ -32,13 +32,6 @@ jobs:
         run: |
 
           NEW_BRANCH="${{ github.event.inputs.branch_name }}"
-          
-
-          if [[ ! "$NEW_BRANCH" =~ ^[a-zA-Z0-9_-]+$ ]]; then
-            echo "Error: Invalid branch name!"
-            exit 1
-          fi
-
 
           if git ls-remote --exit-code --heads origin "$NEW_BRANCH"; then
             echo "Error: Branch $NEW_BRANCH already exists!"
