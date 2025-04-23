@@ -2,7 +2,7 @@
 ## hwameistor-operator repo: https://github.com/hwameistor/hwameistor-operator
 
 # /bin/bash
-
+set -x
 releaseVersion=$1
 
 [ "$releaseVersion" == "" ] && \
