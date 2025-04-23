@@ -19,12 +19,12 @@ rm -rf hwameistor-operator
 oldVersion=$(ss=$(grep "VERSION" config) && echo ${ss#*=})
 echo "oldVersion: $oldVersion"
 OS=$(uname)
-if [ "$OS" == "Darwin" ];then
-	sed -i '' "s/$oldVersion/$releaseVersion/g" config
-elif [ "$OS" == "Linux" ]
+if [ "$OS" == "Darwin" ]; then
+    sed -i '' "s/$oldVersion/$releaseVersion/g" config
+elif [ "$OS" == "Linux" ]; then
     sed -i "s/$oldVersion/$releaseVersion/g" config
-then
-    echo "Unsupported OS $OS" && exit 1
+else
+    echo "Unsupported OS: $OS. Please use either 'Darwin' or 'Linux'." && exit 1
 fi
 
 # download specified version chart
@@ -38,7 +38,7 @@ echo "Step2: do custom actions"
 oldValue1="hwameistorImageRegistry: ghcr.io"
 newValue1="hwameistorImageRegistry: ghcr.m.daocloud.io"
 oldValue2="k8sImageRegistry: registry.k8s.io"
-newValue2="k8sImageRegistry: m.daocloud.io/registry.k8s.io"
+newValue2="k8sImageRegistry: k8s.m.daocloud.io"
 
 target_file="hwameistor-operator/values.yaml"
 
