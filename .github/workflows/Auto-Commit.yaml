@@ -1,0 +1,59 @@
+name: Auto Commit with Custom Branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'Enter the new branch name'
+        required: true
+        type: string
+
+jobs:
+  execute-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Execute test.sh with input
+        run: |
+          cd ./storage-charts-repackage/charts/hwameistor-operator
+          chmod +x upgrade_hwameistor-operator.sh
+          ./upgrade_hwameistor-operator.sh "${{ github.event.inputs.branch_name }}"  
+
+      - name: Configure Git User
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Create and Push Custom Branch
+        run: |
+
+          NEW_BRANCH="${{ github.event.inputs.branch_name }}"
+          
+
+          if [[ ! "$NEW_BRANCH" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+            echo "Error: Invalid branch name!"
+            exit 1
+          fi
+
+
+          if git ls-remote --exit-code --heads origin "$NEW_BRANCH"; then
+            echo "Error: Branch $NEW_BRANCH already exists!"
+            exit 1
+          fi
+
+          git checkout -b "$NEW_BRANCH"
+          
+          if git status --porcelain; then
+            git add .
+            git commit -m "Auto-commit: $NEW_BRANCH"
+            git push origin "$NEW_BRANCH"
+            echo "Successfully pushed to $NEW_BRANCH"
+          else
+            echo "No changes to commit"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
