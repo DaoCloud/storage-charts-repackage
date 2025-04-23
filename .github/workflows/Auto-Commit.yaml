@@ -15,9 +15,9 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: master
 
-      - name: Execute test.sh with input
+      - name: Execute upgrade_hwameistor-operator.sh with input
         run: |
           cd ./storage-charts-repackage/charts/hwameistor-operator
           chmod +x upgrade_hwameistor-operator.sh
