@@ -1,0 +1,20 @@
+{{- if .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hwameistor
+  namespace: {{ .Values.global.targetNamespace }}
+spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - hwameistor
+  selector:
+    matchLabels:
+      app: hwameistor-exporter
+{{- else }}
+# WARNING: ServiceMonitor CRD not available, you can install it later.
+{{- end }}
